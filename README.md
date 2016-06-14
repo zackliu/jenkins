@@ -7,7 +7,7 @@ jenkins:
         运行：docker run --name=jenkins-data jenkinsdata
     jenkins-master:用于生成jenkins主体
         生成：docker build -t jenkinsmaster jenkins-master/.
-        运行: docker run -p 8080:8080 -p 50000:50000 --name=jenkins-master --volume-from=jenkins-data -d jinkinsmaster
+        运行: docker run -p 8080:8080 -p 50000:50000 --name=jenkins-master --volumes-from=jenkins-data -d jinkinsmaster
 
 成功运行后添加插件：docker plugins, github pulgins
 在新项目中 BUILD设置Execute shell:
