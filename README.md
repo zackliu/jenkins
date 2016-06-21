@@ -1,25 +1,49 @@
-***************有关这个项目*****************
-本项目利用jenkins,docker进行自动化部署
+利用jenkins,docker进行自动化部署
+=================================
 
-jenkins:
-    jenkins-data:用于生成data-volume  
+安装方式
+------------
+
+
+#jenkins:
+        jenkins-data:用于生成data-volume  
         生成：docker build -t jenkinsdata jenkins-data/.
         运行：docker run --name=jenkins-data jenkinsdata
-    jenkins-master:用于生成jenkins主体
-        生成：docker build -t jenkinsmaster jenkins-master/.
-        运行: docker run -p 8080:8080 -p 50000:50000 --name=jenkins-master --volumes-from=jenkins-data -d jinkinsmaster
 
-成功运行后添加插件：docker plugins, github pulgins
-在新项目中 BUILD设置Execute shell:
-rm -rf /var/jenkins_home/jobs/test/workspace/test.tar.gz
-rm -rf /var/jenkins_home/jobs/test/workspace/Dockerfile
-tar -zcvf /tmp/test.tar.gz /var/jenkins_home/jobs/test/workspace/
-rm -rf /var/jenkins_home/jobs/test/workspace/*
-mv /tmp/test.tar.gz /var/jenkins_home/jobs/test/workspace/
-echo "--------files tar ok---------"
-touch /var/jenkins_home/jobs/test/workspace/Dockerfile
-cat>Dockerfile<<EOF
-FROM node:argon
-COPY ./test.tar.gz /srv/work
-EOF
-echo "--------Dockerfile OK---------"
+        jenkins-master:用于生成jenkins主体
+        生成：docker build -t jenkinsmaster jenkins-master/.
+        运行: docker run -p 80:8080 -p 50000:50000 --name=jenkins-master --volumes-from=jenkins-data -d jinkinsmaster
+
+        成功运行后添加插件：docker plugins, github pulgins
+
+#node-slave:
+        node-slave用于测试node
+        生成：docker build -t nodeslave node-slave/.
+        不需要手动运行
+
+
+
+
+Jenkins中参数配置
+--------------
+#Credentials设置
+        建立doman为global的credentials，选择Username with password，输入node-slave中Jenkins账户的用户名和密码。
+
+#Cloud设置
+        选择Docker，Name自定，Docker URL:需要能够读到Docker API的地址，目前docker运行在ACS上，找到docker swarm的地址
+        此处为http://172.16.0.5:2375
+        Label假设为node_slave
+        Image选择nodeslave，Remote Filing System Root，Remote FS Root Mapping都设置为/home/jenkins
+        Credentials选择之前创立的
+
+
+
+
+创立新JOB
+----------------
+        Restrict where this project can be run选择node_slave即可。
+
+
+后续工作
+--------------
+        完成nodejs和C#的docker image
