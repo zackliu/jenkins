@@ -5,7 +5,7 @@
 ------------
 
 
-#jenkins:
+##jenkins:
         jenkins-data:用于生成data-volume  
         生成：docker build -t jenkinsdata jenkins-data/.
         运行：docker run --name=jenkins-data jenkinsdata
@@ -16,7 +16,7 @@
 
         成功运行后添加插件：docker plugins, github pulgins
 
-#node-slave:
+##node-slave:
         node-slave用于测试node
         生成：docker build -t nodeslave node-slave/.
         不需要手动运行
@@ -26,10 +26,10 @@
 
 Jenkins中参数配置
 --------------
-#Credentials设置
+##Credentials设置
         建立doman为global的credentials，选择Username with password，输入node-slave中Jenkins账户的用户名和密码。
 
-#Cloud设置
+##Cloud设置
         选择Docker，Name自定，Docker URL:需要能够读到Docker API的地址，目前docker运行在ACS上，找到docker swarm的地址
         此处为http://172.16.0.5:2375
         Label假设为node_slave
