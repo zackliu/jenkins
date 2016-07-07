@@ -6,7 +6,7 @@
         {"username" : "test", "password" : "test"}
     ],
     "administrator" : [
-        "admin"
+        {"username" : "admin", "password" : "admin"}
     ],
     "plugins":[
         "git",
