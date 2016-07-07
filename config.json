@@ -11,8 +11,6 @@
     "plugins":[
         "git",
         "docker-plugin",
-        "workflow-aggregator",
-        "job-dsl", 
-        "extended-read-permission"
+        "job-dsl"
     ]
 }
