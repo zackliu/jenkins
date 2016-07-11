@@ -13,4 +13,28 @@
         "docker-plugin",
         "job-dsl"
     ]
+    "docker":[
+        {
+            "name": "cloud",
+            "severUrl": "http://127.0.0.1:4243",
+            "containerCapStr": "50",
+            "connectTimeout": 5,
+            "readTimeout": 15,
+            "credentialsId": "jenkins-slave-password",
+            "templates": [
+                {
+                    "image": "csharp",
+                    "dnsString": "",
+                    "network": "",
+                    "dockerCommand": "",
+                    "volumesString": "",
+                    "volumesString": "",
+                    "volumesString": "",
+                    "volumesString": "",
+                    "volumesString": "",
+                    "volumesString": "",
+                }
+            ]
+        }
+    ]
 }
