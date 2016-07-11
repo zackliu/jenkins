@@ -21,8 +21,11 @@
         生成：docker build -t nodeslave node-slave/.
         不需要手动运行
 
+##csharp-slave:
+        生成：docker build -t csharpslave csharp/.
 
-
+##protractor:
+        生成：docker build -t protractor e2e/.
 
 Jenkins中参数配置
 --------------
@@ -43,6 +46,10 @@ Jenkins中参数配置
 ----------------
         Restrict where this project can be run选择node_slave即可。
 
+自动化配置
+----------------
+        测试功能auto jenkins
+        使用对应.js可以完成相应功能
 
 后续工作
 --------------
