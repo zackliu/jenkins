@@ -53,4 +53,4 @@ Jenkins中参数配置
 
 后续工作
 --------------
-        完成nodejs和C#的docker image
+        完成docker config和Job-DSL config
