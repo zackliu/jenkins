@@ -1,0 +1,45 @@
+import jenkins.model.Jenkins
+import hudson.security.*
+import java.net.*
+import groovy.json.JsonSlurper
+
+
+pm = Jenkins.instance.pluginManager
+uc = Jenkins.instance.updateCenter
+def jsonPayload = new URL("https://raw.githubusercontent.com/zackliu/jenkins/master/config.json").getText();
+def state = new JsonSlurper().parseText(jsonPayload);
+
+
+
+deployed = false
+def activatePlugin(plugin) {
+  if (! plugin.isEnabled()) {
+    plugin.enable()
+    deployed = true
+  }
+
+  plugin.getDependencies().each {
+    activatePlugin(pm.getPlugin(it.shortName))
+  }
+}
+
+state.plugins.each {
+  if (! pm.getPlugin(it)) {
+    deployment = uc.getPlugin(it).deploy(true)
+    deployment.get()
+  }
+  activatePlugin(pm.getPlugin(it))
+}
+
+updated = false
+pm.plugins.each { plugin ->
+  if (uc.getPlugin(plugin.shortName).version != plugin.version) {
+    update = uc.getPlugin(plugin.shortName).deploy(true)
+    update.get()
+    updated = true
+  }
+}
+
+jenkins.model.Jenkins.getInstance().restart()
+
+
