@@ -20,7 +20,7 @@
             "containerCapStr": "50",
             "connectTimeout": 5,
             "readTimeout": 15,
-            "credentialsId": "jenkins-slave-password",
+            "credentialsId": "",
             "templates": [
                 {
                     "image": "csharp",
