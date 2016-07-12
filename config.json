@@ -117,9 +117,9 @@
                         "credentialId": "a12a969a-f987-40d6-b8ff-91b0df2a601e",
                         "mailGroup": "sitexp@microsoft.com, bradyg@microsoft.com, Dan.Fernandez@microsoft.com, Duncan.Mackenzie@microsoft.com, adkinn@microsoft.com, Mike.Sampson@microsoft.com",
                         "labelExpression":{
-                            "daysToKeep": 14, // If specified, build records are only kept up to this number of days.
-                            "numToKeep": 40, // If specified, only up to this number of build records are kept.
-                            "artifactDaysToKeep": 14, // If specified, artifacts from builds older than this number of days will be deleted, but the logs, history, reports, etc for the build will be kept.
+                            "daysToKeep": 14, 
+                            "numToKeep": 40, 
+                            "artifactDaysToKeep": 14, 
                             "artifactNumToKeep": 40
                         }
                     },
