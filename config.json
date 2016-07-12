@@ -12,7 +12,7 @@
         "git",
         "docker-plugin",
         "job-dsl",
-        "delivery-pipeline-plugin,
+        "delivery-pipeline-plugin",
         "cloudbees-folder",
         "email-ext",
         "postbuildscript"
