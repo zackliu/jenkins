@@ -39,6 +39,15 @@ Jenkins中参数配置
         Image选择nodeslave，Remote Filing System Root，Remote FS Root Mapping都设置为/home/jenkins
         Credentials选择之前创立的
 
+##自动配置方式（NEW）
+		使用auto jenkins中的js文件进行配置
+		createaccounts: 创建账户
+		createcredentials：创建credentials
+		createdocker: 建立docker template
+		installplugins: 更新和安装插件
+		createjobs：自动配置job（未完成）
+		
+		使用config.json进行配置
 
 
 
@@ -46,11 +55,6 @@ Jenkins中参数配置
 ----------------
         Restrict where this project can be run选择node_slave即可。
 
-自动化配置
-----------------
-        测试功能auto jenkins
-        使用对应.js可以完成相应功能
-
 后续工作
 --------------
-        完成docker config和Job-DSL config
+        完成Job-DSL config
