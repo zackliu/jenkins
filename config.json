@@ -11,7 +11,8 @@
     "plugins":[
         "git",
         "docker-plugin",
-        "job-dsl"
+        "job-dsl",
+        "delivery-pipeline-plugin"
     ],
     "docker":[
         {
