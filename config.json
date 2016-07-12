@@ -12,7 +12,7 @@
         "git",
         "docker-plugin",
         "job-dsl"
-    ]
+    ]，
     "docker":[
         {
             "name": "cloud",
