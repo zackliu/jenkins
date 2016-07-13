@@ -110,7 +110,7 @@
             "dslTemplateUrl": "https://raw.githubusercontent.com/zackliu/jenkins/master/dslJob.groovy",
             "jobs": {
                 "folderName": "docs_template",
-                "branchs": ["develop", "release", "hotfix", "master"],
+                "branches": ["develop", "release", "hotfix", "master"],
                 "mergeMapping":{
                 "develop": "release",
                 "release": "master",
