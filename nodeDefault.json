@@ -1,0 +1,52 @@
+{
+    "name": "nodeInstance",
+    "label": "node_slave",
+    "logRotator":{
+        "daysToKeep": 14, 
+        "numToKeep": 40, 
+        "artifactDaysToKeep": 14, 
+        "artifactNumToKeep": 40
+    },
+
+    "gitEnabled": true,
+    "git":{
+        "name": null,
+        "repo": "ssh://mseng@mseng.visualstudio.com:22/VSChina/_git/Template.Docs",
+        "credentials": "a12a969a-f987-40d6-b8ff-91b0df2a601e",
+        "branches": "develop",
+        "mergeOptions": false,
+        "mergeBranch": null,
+        "mergeRemote": null
+    },
+
+    "triggersUpstream": null,
+
+    "shellEnabled": true,
+    "shell": null,
+
+    "publishers":{
+        "extendedEmailEnabled": false,
+
+        "recipientList": "sitexp@microsoft.com, bradyg@microsoft.com, Dan.Fernandez@microsoft.com, Duncan.Mackenzie@microsoft.com, adkinn@microsoft.com, Mike.Sampson@microsoft.com",
+        "defaultSubject": "$DEFAULT_SUBJECT",
+        "defaultContent": "$DEFAULT_CONTENT",
+        "contentType": "default",
+
+        "triggersAlwaysEnabled": false,
+        "triggersAlwaysDevelopers": true,
+        "triggersAlwaysRecipientList": true,
+
+        "triggersFailureEnabled": false,
+        "triggersFailureDevelopers": true,
+        "triggersFailureRecipientList": true,
+
+        "triggersFixedEnabled": false,
+        "triggersFixedDevelopers": true,
+        "triggersFixedRecipientList": true,
+
+
+        "gitPublisherEnabled": false,
+        "pushOnlyIfSuccess": true,
+        "pushMerge": true
+    }
+}

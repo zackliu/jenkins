@@ -1,0 +1,72 @@
+{
+    "partner": "docs",
+    "workflow":[
+        {
+            "branch": "develop",
+            "jobs":[
+                {
+                    "name": "develop_ci",
+                    "template": "node",
+                    "shell":[
+                        "npm install",
+                        "npm run opst init",
+                        "npm run opst -- deployTheme -B ${codeBranch}"
+                    ],
+                    "extendedEmailEnabled": true,
+                    "triggersAlwaysEnabled": true
+                },
+
+                {
+                    "name": "develop_opbuild",
+                    "template": "node",
+                    "triggersUpstream": "develop_ci",
+                    "shell":[
+                        "npm install \n",
+                        "gulp merge --repo openpublishing-test --gitUser Microsoft --gitToken 46b91c61e451d012b9a71fcbc7a69c2a7a8c6c89 --sourceBranch master --targetBranch ${contentBranch}",
+                        "gulp triggerBuild --buildEndpoint ${opbuildEndpoint} --buildBranch ${contentBranch}"
+                    ],
+                    "extendedEmailEnabled": true,
+                    "triggersFailureEnabled": true,
+                    "triggersFixedEnabled": true
+                },
+
+                {
+                    "name": "develop_e2e",
+                    "template": "protractor"
+                },
+
+                {
+                    "name": "develop_merge",
+                    "template": "node",
+                    "triggersUpstream": "develop_e2e",
+                    "git":{
+                        "name": "Template.Docs",
+                        "mergeOptions": true,
+                        "mergeBranch": "release",
+                        "mergeRemote": "Template.Docs"
+                    },
+                    "shellEnabled": false,
+                    "gitPublisherEnabled": true
+                }
+            ]
+        },
+
+        {
+            "branch": "master",
+            "jobs":[
+                {
+                    "template": "node",
+                    "label": "node_slave"
+                },
+                {
+                    "template": "e2e",
+                    "label": "protractor_slave"
+                },
+                {
+                    "template": "csharp",
+                    "label": "csharp_slave"
+                }
+            ]
+        }
+    ]
+}

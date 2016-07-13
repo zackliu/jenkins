@@ -206,23 +206,23 @@ def execute(settings) {
         switch (it) {
             case "develop":
                 createCiJob(ciJobName, settings, it)
-                createOpbuildJob(opbuildJobName, it + '_ci', settings['template'], settings['e2e'], it)
-                createE2eJob(e2eJobName, it + '_opbuild', settings['e2e'], it)
-                createMergeJob(mergeJobName, it + '_e2e', settings['template'], it, mergeMapping[it])
+               // createOpbuildJob(opbuildJobName, it + '_ci', settings, settings['e2e'], it)
+                createE2eJob(e2eJobName, it + '_opbuild', settings, it)
+                createMergeJob(mergeJobName, it + '_e2e', settings, it, settings.mergeMapping."$it")
                 break
             case "release":
-                createCiJob(ciJobName, settings['template'], it)
-                createOpbuildJob(opbuildJobName, it + '_ci', settings['template'], settings['e2e'], it)
-                createE2eJob(e2eJobName, it + '_opbuild', settings['e2e'], it)
+                createCiJob(ciJobName, settings, it)
+             //   createOpbuildJob(opbuildJobName, it + '_ci', settings, settings['e2e'], it)
+                createE2eJob(e2eJobName, it + '_opbuild', settings, it)
                 break
             case "hotfix":
-                createCiJob(ciJobName, settings['template'], it)
-                createOpbuildJob(opbuildJobName, it + '_ci', settings['template'], settings['e2e'], it)
-                createE2eJob(e2eJobName, it + '_opbuild', settings['e2e'], it)
-                createMergeJob(mergeJobName, it + '_e2e', settings['template'], it, mergeMapping[it])
+                createCiJob(ciJobName, settings, it)
+              //  createOpbuildJob(opbuildJobName, it + '_ci', settings['template'], settings['e2e'], it)
+                createE2eJob(e2eJobName, it + '_opbuild', settings, it)
+                createMergeJob(mergeJobName, it + '_e2e', settings, it, settings.mergeMapping."$it")
                 break
             case "master":
-                createCiJob(ciJobName, settings['template'], it)
+                createCiJob(ciJobName, settings, it)
                 break
         }
     }
@@ -235,9 +235,7 @@ def execute(settings) {
         allowPipelineStart()
         enableManualTriggers()
         allowRebuild()
-        configure { view ->
-            view / showTestResults(true)
-        }
+        showTestResults(true)
         pipelines {
             component('develop_pipeline', 'develop_ci')
             component('release_pipeline', 'release_ci')
@@ -246,3 +244,5 @@ def execute(settings) {
         }
     }
 }
+
+execute(state.seedJob[0].jobs);
