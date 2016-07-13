@@ -108,57 +108,63 @@
         {
             "name": "seed job",
             "dslTemplateUrl": "https://raw.githubusercontent.com/zackliu/jenkins/master/dslJob.groovy",
-            "folderName": "docs_template",
-            "jobs": [
-                {
-                    "partnerName": "docs",
-                    "template":{
-                        "repoUrl": "ssh://mseng@mseng.visualstudio.com:22/VSChina/_git/Template.Docs",
-                        "credentialId": "a12a969a-f987-40d6-b8ff-91b0df2a601e",
-                        "mailGroup": "sitexp@microsoft.com, bradyg@microsoft.com, Dan.Fernandez@microsoft.com, Duncan.Mackenzie@microsoft.com, adkinn@microsoft.com, Mike.Sampson@microsoft.com",
-                        "labelExpression":{
-                            "daysToKeep": 14, 
-                            "numToKeep": 40, 
-                            "artifactDaysToKeep": 14, 
-                            "artifactNumToKeep": 40
-                        }
-                    },
+            "jobs": {
+                "folderName": "docs_template",
+                "branchs": ["develop", "release", "hotfix", "master"],
+                "mergeMapping":{
+                "develop": "release",
+                "release": "master",
+                "hotfix": "master"
+                 },
+                "partnerName": "docs",
+                "template":{
+                     "repoUrl": "ssh://mseng@mseng.visualstudio.com:22/VSChina/_git/Template.Docs",
+                     "credentialId": "a12a969a-f987-40d6-b8ff-91b0df2a601e",
+                     "mailGroup": "sitexp@microsoft.com, bradyg@microsoft.com, Dan.Fernandez@microsoft.com, Duncan.Mackenzie@microsoft.com, adkinn@microsoft.com, Mike.Sampson@microsoft.com",
+                     "logRotator":{
+                         "daysToKeep": 14, 
+                         "numToKeep": 40, 
+                         "artifactDaysToKeep": 14, 
+                         "artifactNumToKeep": 40
+                      },
+                     "labelExpression": null
+                 },
 
-                    "ci":{
-                        "labelExpression": "node_slave",
-                        "shell": [
-                            "npm install",
-                            "npm run opst init",
-                            "npm run opst -- deployTheme -B ${codeBranch}"
-                        ]
-                    },
+                "ci":{
+                    "labelExpression": "node_slave",
+                     "shell": [
+                         "npm install",
+                         "npm run opst init",
+                         "npm run opst -- deployTheme -B ${codeBranch}"
+                     ]
+                 },
 
-                    "e2e":{
-                        "repoUrl": "ssh://mseng@mseng.visualstudio.com:22/VSChina/_git/Docs.E2E",
-                        "mailGroup": "sitexp@microsoft.com, bradyg@microsoft.com, Dan.Fernandez@microsoft.com, Duncan.Mackenzie@microsoft.com, adkinn@microsoft.com, Mike.Sampson@microsoft.com, v-dejliu@microsoft.com, v-peliao@microsoft.com, v-yajlu@microsoft.com, v-susu@microsoft.com",
-                        "labelExpression": "protractor_slave",
-                        "develop_e2e": {
-                            "sourceBranch": "develop",
-                            "baseUrl": "https://docspilot.azurewebsites.net",
-                            "configFile": "test/Docs/protractor.config.js",
-                            "contentBranch": "docs_develop_e2e",
-                            "opbuildEnv": "sandbox"
-                        },
-                        "release_e2e": {
-                            "sourceBranch": "develop",
-                            "baseUrl": "https://stage.docs.microsoft.com",
-                            "configFile": "test/Docs/protractor.config.js",
-                            "contentBranch": "docs_release_e2e",
-                            "opbuildEnv": "prod"
-                        },
-                        "hotfix_e2e": {
-                            "sourceBranch": "master",
-                            "baseUrl": "https://stage.docs.microsoft.com",
-                            "configFile": "test/Docs/protractor.config.js",
-                            "contentBranch": "docs_hotfix_e2e",
-                            "opbuildEnv": "prod"
-                        }
+                "e2e":{
+                    "repoUrl": "ssh://mseng@mseng.visualstudio.com:22/VSChina/_git/Docs.E2E",
+                    "mailGroup": "sitexp@microsoft.com, bradyg@microsoft.com, Dan.Fernandez@microsoft.com, Duncan.Mackenzie@microsoft.com, adkinn@microsoft.com, Mike.Sampson@microsoft.com, v-dejliu@microsoft.com, v-peliao@microsoft.com, v-yajlu@microsoft.com, v-susu@microsoft.com",
+                    "labelExpression": "protractor_slave",
+                    "develop_e2e": {
+                        "sourceBranch": "develop",
+                        "baseUrl": "https://docspilot.azurewebsites.net",
+                        "configFile": "test/Docs/protractor.config.js",
+                        "contentBranch": "docs_develop_e2e",
+                        "opbuildEnv": "sandbox"
                     },
+                    "release_e2e": {
+                        "sourceBranch": "develop",
+                        "baseUrl": "https://stage.docs.microsoft.com",
+                        "configFile": "test/Docs/protractor.config.js",
+                        "contentBranch": "docs_release_e2e",
+                        "opbuildEnv": "prod"
+                    },
+                    "hotfix_e2e": {
+                        "sourceBranch": "master",
+                        "baseUrl": "https://stage.docs.microsoft.com",
+                        "configFile": "test/Docs/protractor.config.js",
+                        "contentBranch": "docs_hotfix_e2e",
+                        "opbuildEnv": "prod"
+                    }
+                },
 
                     "merge":{
                         "labelExpression": "node_slave"
@@ -173,7 +179,7 @@
                         ]
                     }
                 }
-            ]
+            
         }
     ]
 }
