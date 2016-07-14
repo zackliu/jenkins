@@ -21,9 +21,8 @@
                     "template": "node",
                     "triggersUpstream": "develop_ci",
                     "shell":[
-                        "npm install \n",
-                        "gulp merge --repo openpublishing-test --gitUser Microsoft --gitToken 46b91c61e451d012b9a71fcbc7a69c2a7a8c6c89 --sourceBranch master --targetBranch ${contentBranch}",
-                        "gulp triggerBuild --buildEndpoint ${opbuildEndpoint} --buildBranch ${contentBranch}"
+                        "npm install \n"
+                        
                     ],
                     "extendedEmailEnabled": true,
                     "triggersFailureEnabled": true,
@@ -36,9 +35,8 @@
                     "triggerEnabled": true,
                     "triggersUpstream": "develop_opbuild",
                     "shell":[
-                        "npm install \n",
-                        "gulp merge --repo openpublishing-test --gitUser Microsoft --gitToken 46b91c61e451d012b9a71fcbc7a69c2a7a8c6c89 --sourceBranch master --targetBranch ${contentBranch}",
-                        "gulp triggerBuild --buildEndpoint ${opbuildEndpoint} --buildBranch ${contentBranch}"
+                        "npm install \n"
+                        
                     ],
                     "publishers":{
                         "artifactArchiverEnabled": true,
@@ -84,9 +82,7 @@
                     "template": "node",
                     "triggersUpstream": "release_ci",
                     "shell":[
-                        "npm install \n",
-                        "gulp merge --repo openpublishing-test --gitUser Microsoft --gitToken 46b91c61e451d012b9a71fcbc7a69c2a7a8c6c89 --sourceBranch master --targetBranch ${contentBranch}",
-                        "gulp triggerBuild --buildEndpoint ${opbuildEndpoint} --buildBranch ${contentBranch}"
+                        "npm install \n"
                     ],
                     "extendedEmailEnabled": true,
                     "triggersFailureEnabled": true,
@@ -99,9 +95,7 @@
                     "triggerEnabled": true,
                     "triggersUpstream": "release_opbuild",
                     "shell":[
-                        "npm install \n",
-                        "gulp merge --repo openpublishing-test --gitUser Microsoft --gitToken 46b91c61e451d012b9a71fcbc7a69c2a7a8c6c89 --sourceBranch master --targetBranch ${contentBranch}",
-                        "gulp triggerBuild --buildEndpoint ${opbuildEndpoint} --buildBranch ${contentBranch}"
+                        "npm install \n"
                     ],
                     "publishers":{
                         "artifactArchiverEnabled": true,
@@ -120,9 +114,7 @@
                     "name": "hotfix_ci",
                     "template": "node",
                     "shell":[
-                        "npm install",
-                        "npm run opst init",
-                        "npm run opst -- deployTheme -B ${codeBranch}"
+                        "npm install"
                     ],
                     "extendedEmailEnabled": true,
                     "triggersAlwaysEnabled": true
@@ -133,9 +125,7 @@
                     "template": "node",
                     "triggersUpstream": "hotfix_ci",
                     "shell":[
-                        "npm install \n",
-                        "gulp merge --repo openpublishing-test --gitUser Microsoft --gitToken 46b91c61e451d012b9a71fcbc7a69c2a7a8c6c89 --sourceBranch master --targetBranch ${contentBranch}",
-                        "gulp triggerBuild --buildEndpoint ${opbuildEndpoint} --buildBranch ${contentBranch}"
+                        "npm install \n"
                     ],
                     "extendedEmailEnabled": true,
                     "triggersFailureEnabled": true,
@@ -148,9 +138,7 @@
                     "triggerEnabled": true,
                     "triggersUpstream": "hotfix_opbuild",
                     "shell":[
-                        "npm install \n",
-                        "gulp merge --repo openpublishing-test --gitUser Microsoft --gitToken 46b91c61e451d012b9a71fcbc7a69c2a7a8c6c89 --sourceBranch master --targetBranch ${contentBranch}",
-                        "gulp triggerBuild --buildEndpoint ${opbuildEndpoint} --buildBranch ${contentBranch}"
+                        "npm install \n"
                     ],
                     "publishers":{
                         "artifactArchiverEnabled": true,

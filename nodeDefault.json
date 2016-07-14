@@ -14,7 +14,7 @@
     "git":{
         "name": null,
         "repo": "ssh://mseng@mseng.visualstudio.com:22/VSChina/_git/Template.Docs",
-        "credentials": "a12a969a-f987-40d6-b8ff-91b0df2a601e",
+        "credentials": null,
         "branches": "develop",
         "mergeOptions": false,
         "mergeBranch": null,
