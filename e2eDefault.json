@@ -1,6 +1,6 @@
 {
-    "name": "nodeInstance",
-    "label": "node_slave",
+    "name": "e2eInstance",
+    "label": "protractor_slave",
 
     "logRotatorEnabled": true,
     "logRotator":{
@@ -30,7 +30,7 @@
     "publishers":{
         "artifactArchiverEnabled": false,
         "FilesToArchive": "result/e2e/screenshots/**/*.*",
-        
+
         "extendedEmailEnabled": false,
 
         "recipientList": "sitexp@microsoft.com, bradyg@microsoft.com, Dan.Fernandez@microsoft.com, Duncan.Mackenzie@microsoft.com, adkinn@microsoft.com, Mike.Sampson@microsoft.com",
@@ -54,5 +54,7 @@
         "gitPublisherEnabled": false,
         "pushOnlyIfSuccess": true,
         "pushMerge": true
+
+
     }
 }
