@@ -23,7 +23,139 @@ def createJob(defaultSettings, userSettings)
     if(jobName == null) return
     job(jobName)
     {
-        
+        def labelExpression = getParameter("label",defaultSettings, userSettings)
+        label(labelExpression)
+
+        def logRotatorEnabled = getParameter("logRotatorEnabled", defaultSettings, userSettings)
+        if(logRotatorEnabled == true)
+        {
+            logRotator 
+            { 
+                daysToKeep(getParameter("daysToKeep", defaultSettings.logRotator, userSettings.logRotator)) // If specified, build records are only kept up to this number of days.
+                numToKeep(getParameter("numToKeep", defaultSettings.logRotator, userSettings.logRotator)) // If specified, only up to this number of build records are kept.
+                artifactDaysToKeep(getParameter("artifactDaysToKeep", defaultSettings.logRotator, userSettings.logRotator)) // If specified, artifacts from builds older than this number of days will be deleted, but the logs, history, reports, etc for the build will be kept.
+                artifactNumToKeep(getParameter("artifactNumToKeep", defaultSettings.logRotator, userSettings.logRotator)) // If specified, only up to this number of builds have their artifacts retained.
+            }
+        }
+
+        def gitEnabled = getParameter("gitEnabled",defaultSettings, userSettings)
+        if(gitEnabled == true)
+        {
+            scm
+            {
+                git
+                {
+                    remote
+                    {
+                        name(getParameter("name",defaultSettings.git, userSettings.git))
+                        url(getParameter("repo",defaultSettings.git, userSettings.git))
+                        credentials(getParameter("credentials",defaultSettings.git, userSettings.git))
+                    }
+                    branch(getParameter("branches",defaultSettings.git, userSettings.git))
+                    extensions
+                    {
+                        def mergeOptionsEnabled = getParameter("mergeOptionsEnabled",defaultSettings.git, userSettings.git)
+                        if(mergeOptionsEnabled == true)
+                        {
+                            mergeOptionsEnabled
+                            {
+                                branch(getParameter("branch",defaultSettings.git.mergeOptions, userSettings.git.mergeOptions))
+                                remote(getParameter("remote",defaultSettings.git.mergeOptions, userSettings.git.mergeOptions))
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        def triggerEnabled = getParameter("triggerEnabled", defaultSettings, userSettings)
+        if(triggerEnabled == true)
+        {
+            triggers
+            {
+                upstream(getParameter("upstream", defaultSettings.triggers, userSettings.triggers), "SUCCESS")
+            }
+        }
+
+        def shellEnabled = getParameter("shellEnabled", defaultSettings, userSettings)
+        if(shellEnabled == true)
+        {
+            step
+            {
+                shell(getParameter("shell", defaultSettings, userSettings).join('\n'))
+            }
+        }
+
+        def publishersEnabled = getParameter("publishersEnabled", defaultSettings, userSettings)
+        if(publishersEnabled == true)
+        {
+            publishers
+            {
+                if(getParameter("extendedEmailEnabled", defaultSettings.publishers, userSettings.publishers) == true)
+                {
+                    extendedEmail
+                    {
+                        recipientList(getParameter("recipientList", defaultSettings.publishers.extendedEmail, userSettings.publishers.extendedEmail))
+                        defaultSubject(getParameter("defaultSubject", defaultSettings.publishers.extendedEmail, userSettings.publishers.extendedEmail))
+                        defaultContent(getParameter("defaultContent", defaultSettings.publishers.extendedEmail, userSettings.publishers.extendedEmail))
+                        contentType(getParameter("contentType", defaultSettings.publishers.extendedEmail, userSettings.publishers.extendedEmail))
+
+                        if(getParameter("triggersAlwaysEnabled", defaultSettings.publishers.extendedEmail, userSettings.publishers.extendedEmail) == true)
+                        {
+                            triggers
+                            {
+                                always
+                                {
+                                    sendTo
+                                    {
+                                        if(getParameter("developers", defaultSettings.publishers.extendedEmail.triggersAlways, userSettings.publishers.extendedEmail.triggersAlways) == true) developers()
+                                        if(getParameter("recipientList", defaultSettings.publishers.extendedEmail.triggersAlways, userSettings.publishers.extendedEmail.triggersAlways) == true) recipientList()
+                                    }
+                                }
+                            }
+                        }
+                        if(getParameter("triggersFailureEnabled", defaultSettings.publishers.extendedEmail, userSettings.publishers.extendedEmail) == true)
+                        {
+                            triggers
+                            {
+                                failure
+                                {
+                                    sendTo
+                                    {
+                                        if(getParameter("developers", defaultSettings.publishers.extendedEmail.triggersFailure, userSettings.publishers.extendedEmail.triggersFailure) == true) developers()
+                                        if(getParameter("recipientList", defaultSettings.publishers.extendedEmail.triggersFailure, userSettings.publishers.extendedEmail.triggersFailure) == true) recipientList()
+                                    }
+                                }
+                            }
+                        }
+                        if(getParameter("triggersFixedEnabled", defaultSettings.publishers.extendedEmail, userSettings.publishers.extendedEmail) == true)
+                        {
+                            triggers
+                            {
+                                fixed
+                                {
+                                    sendTo
+                                    {
+                                        if(getParameter("developers", defaultSettings.publishers.extendedEmail.triggersFixed, userSettings.publishers.extendedEmail.triggersFixed) == true) developers()
+                                        if(getParameter("recipientList", defaultSettings.publishers.extendedEmail.triggersFixed, userSettings.publishers.extendedEmail.triggersFixed) == true) recipientList()
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if(getParameter("gitEnabled", defaultSettings.publishers, userSettings.publishers) == true)
+                {
+                    git
+                    {
+                        if(getParameter("pushOnlyIfSuccess", defaultSettings.publishers.git, userSettings.publishers.git) == true) pushOnlyIfSuccess()
+                        if(getParameter("pushMerge", defaultSettings.publishers.git, userSettings.publishers.git) == true) pushMerge()
+                    }
+                    
+                }
+            }
+        }
     }
 }
 

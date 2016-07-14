@@ -16,44 +16,58 @@
         "repo": "ssh://mseng@mseng.visualstudio.com:22/VSChina/_git/Template.Docs",
         "credentials": "a12a969a-f987-40d6-b8ff-91b0df2a601e",
         "branches": "develop",
-        "mergeOptions": false,
-        "mergeBranch": null,
-        "mergeRemote": null
+
+        "mergeOptionsEnabled": false,
+        "mergeOptions":{
+            "branch": null,
+            "remote": null
+        }
     },
 
     "triggerEnabled": false,
-    "triggersUpstream": null,
-
+    "triggers":{
+        "upstream": null
+    },
+    
     "shellEnabled": true,
     "shell": null,
 
+    "publishersEnabled": true,
     "publishers":{
         "artifactArchiverEnabled": false,
         "FilesToArchive": "result/e2e/screenshots/**/*.*",
 
         "extendedEmailEnabled": false,
+        "extendedEmail":{
+            "recipientList": "sitexp@microsoft.com, bradyg@microsoft.com, Dan.Fernandez@microsoft.com, Duncan.Mackenzie@microsoft.com, adkinn@microsoft.com, Mike.Sampson@microsoft.com",
+            "defaultSubject": "$DEFAULT_SUBJECT",
+            "defaultContent": "$DEFAULT_CONTENT",
+            "contentType": "default",
 
-        "recipientList": "sitexp@microsoft.com, bradyg@microsoft.com, Dan.Fernandez@microsoft.com, Duncan.Mackenzie@microsoft.com, adkinn@microsoft.com, Mike.Sampson@microsoft.com",
-        "defaultSubject": "$DEFAULT_SUBJECT",
-        "defaultContent": "$DEFAULT_CONTENT",
-        "contentType": "default",
+            "triggersAlwaysEnabled": false,
+            "triggersAlways":{
+                "developers": true,
+                "recipientList": true
+            },
 
-        "triggersAlwaysEnabled": false,
-        "triggersAlwaysDevelopers": true,
-        "triggersAlwaysRecipientList": true,
+            "triggersFailureEnabled": false,
+            "triggersFailure":{
+                "developers": true,
+                "recipientList": true
+            },
+            
+            "triggersFixedEnabled": false,
+            "triggersFixed":{
+                "developers": true,
+                "recipientList": true
+            }
+        },
 
-        "triggersFailureEnabled": false,
-        "triggersFailureDevelopers": true,
-        "triggersFailureRecipientList": true,
-
-        "triggersFixedEnabled": false,
-        "triggersFixedDevelopers": true,
-        "triggersFixedRecipientList": true,
-
-
-        "gitPublisherEnabled": false,
-        "pushOnlyIfSuccess": true,
-        "pushMerge": true
+        "gitEnabled": false,
+        "git":{
+            "pushOnlyIfSuccess": true,
+            "pushMerge": true
+        }
 
 
     }
