@@ -54,7 +54,9 @@
                     "template": "e2eDefault",
 
                     "triggerEnabled": true,
-                    "triggersUpstream": "develop_opbuild",
+                    "triggers":{
+                        "upstream": "develop_opbuild"
+                    },
 
                     "shellEnabled": true,
                     "shell":[
@@ -77,7 +79,9 @@
                     "template": "nodeDefault",
 
                     "triggerEnabled": true,
-                    "triggersUpstream": "develop_e2e",
+                    "triggers":{
+                        "upstream": "develop_e2e"
+                    },
 
                     "git":{
                         "name": "Template.Docs",
