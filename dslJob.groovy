@@ -10,8 +10,8 @@ def e2eSettings = new JsonSlurper().parseText(jsonPayloadE2e)
 
 def getParameter(variable, defaultSettings, userSettings)
 {
-    if(userSettings["$variable"] != null) return userSettings["$variable"]
-    if(defaultSettings["$variable"] != null) return defaultSettings["$variable"]
+    if(userSettings != null && userSettings["$variable"] != null) return userSettings["$variable"]
+    if(defaultSettings != null && defaultSettings["$variable"] != null) return defaultSettings["$variable"]
     return null;
 }
 
@@ -80,7 +80,7 @@ def createJob(defaultSettings, userSettings)
         def shellEnabled = getParameter("shellEnabled", defaultSettings, userSettings)
         if(shellEnabled == true)
         {
-            step
+            steps
             {
                 shell(getParameter("shell", defaultSettings, userSettings).join('\n'))
             }
@@ -159,4 +159,28 @@ def createJob(defaultSettings, userSettings)
     }
 }
 
-createJob(jobsSettings.workflow[0].jobs[0], nodeSettings)
+def createBranch(userSettings)
+{
+    branch = userSettings.branch
+
+    userSettings.jobs.each
+    {
+        jobSettings ->
+        def defaultSettings = null
+        if(jobSettings.template == "nodeDefault") defaultSettings = nodeSettings
+        else if (jobSettings.template == "e2eDefault") defaultSettings = e2eSettings
+        createJob(defaultSettings, jobSettings)
+    }
+}
+
+def createWorkflow(userSettings)
+{
+    partner = userSettings.partner
+    userSettings.workflow.each
+    {
+        branchSettings ->
+        createBranch(branchSettings)
+    }
+}
+
+createWorkflow(jobsSettings)

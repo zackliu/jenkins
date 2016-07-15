@@ -14,7 +14,7 @@
     "git":{
         "name": null,
         "repo": "ssh://mseng@mseng.visualstudio.com:22/VSChina/_git/Template.Docs",
-        "credentials": "a12a969a-f987-40d6-b8ff-91b0df2a601e",
+        "credentials": null,
         "branches": "develop",
 
         "mergeOptionsEnabled": false,
@@ -29,14 +29,14 @@
         "upstream": null
     },
     
-    "shellEnabled": true,
+    "shellEnabled": false,
     "shell": null,
 
     "publishersEnabled": true,
     "publishers":{
         "artifactArchiverEnabled": false,
         "FilesToArchive": "result/e2e/screenshots/**/*.*",
-
+        
         "extendedEmailEnabled": false,
         "extendedEmail":{
             "recipientList": "sitexp@microsoft.com, bradyg@microsoft.com, Dan.Fernandez@microsoft.com, Duncan.Mackenzie@microsoft.com, adkinn@microsoft.com, Mike.Sampson@microsoft.com",
@@ -68,7 +68,6 @@
             "pushOnlyIfSuccess": true,
             "pushMerge": true
         }
-
-
+        
     }
 }

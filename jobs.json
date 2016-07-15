@@ -5,7 +5,7 @@
             "branch": "develop",
             "jobs":[
                 {
-                    "template": "node",
+                    "template": "nodeDefault",
                     "name": "develop_ci",
 
                     "shellEnabled": true,
@@ -14,7 +14,7 @@
                         "npm run opst init",
                         "npm run opst -- deployTheme -B ${codeBranch}"
                     ],
-                    
+
                     "publishersEnabled":true,
                     "publishers":{
                         "extendedEmailEnabled": true,
@@ -25,168 +25,74 @@
                 },
 
                 {
+                    "template": "nodeDefault",
                     "name": "develop_opbuild",
-                    "template": "node",
-                    "triggersUpstream": "develop_ci",
+
+                    "triggerEnabled": true,
+                    "trigger":{
+                        "upstream": "develop_ci"
+                    },
+
+                    "shellEnabled": true,
                     "shell":[
                         "npm install \n"
                         
                     ],
-                    "extendedEmailEnabled": true,
-                    "triggersFailureEnabled": true,
-                    "triggersFixedEnabled": true
+
+                    "publishersEnabled":true,
+                    "publishers":{
+                        "extendedEmailEnabled": true,
+                        "extendedEmail":{
+                            "triggersFailureEnabled": true,
+                            "triggersFixedEnabled": true
+                        }
+                    }
                 },
 
                 {
                     "name": "develop_e2e",
-                    "template": "protractor",
+                    "template": "e2eDefault",
+
                     "triggerEnabled": true,
                     "triggersUpstream": "develop_opbuild",
+
+                    "shellEnabled": true,
                     "shell":[
                         "npm install \n"
-                        
                     ],
+
+                    "publishersEnabled":true,
                     "publishers":{
                         "artifactArchiverEnabled": true,
                         "extendedEmailEnabled": true,
-                        "triggersFailureEnabled": true,
-                        "triggersFixedEnabled": true
+                        "extendedEmail":{
+                            "triggersFailureEnabled": true,
+                            "triggersFixedEnabled": true
+                        }
                     }
                 },
 
                 {
                     "name": "develop_merge",
-                    "template": "node",
+                    "template": "nodeDefault",
+
+                    "triggerEnabled": true,
                     "triggersUpstream": "develop_e2e",
+
                     "git":{
                         "name": "Template.Docs",
-                        "mergeOptions": true,
-                        "mergeBranch": "release",
-                        "mergeRemote": "Template.Docs"
+
+                        "mergeOptionsEnabled": true,
+                        "mergeOptions":{
+                            "branch": "release",
+                            "remote": "Template.Docs"
+                        }
                     },
-                    "shellEnabled": false,
-                    "gitPublisherEnabled": true
-                }
-            ]
-        },
 
-        {
-            "branch": "release",
-            "jobs":[
-                {
-                    "name": "release_ci",
-                    "template": "node",
-                    "shell":[
-                        "npm install",
-                        "npm run opst init",
-                        "npm run opst -- deployTheme -B ${codeBranch}"
-                    ],
-                    "extendedEmailEnabled": true,
-                    "triggersAlwaysEnabled": true
-                },
-
-                {
-                    "name": "release_opbuild",
-                    "template": "node",
-                    "triggersUpstream": "release_ci",
-                    "shell":[
-                        "npm install \n"
-                    ],
-                    "extendedEmailEnabled": true,
-                    "triggersFailureEnabled": true,
-                    "triggersFixedEnabled": true
-                },
-
-                {
-                    "name": "release_e2e",
-                    "template": "protractor",
-                    "triggerEnabled": true,
-                    "triggersUpstream": "release_opbuild",
-                    "shell":[
-                        "npm install \n"
-                    ],
                     "publishers":{
-                        "artifactArchiverEnabled": true,
-                        "extendedEmailEnabled": true,
-                        "triggersFailureEnabled": true,
-                        "triggersFixedEnabled": true
+                        "gitEnabled": true
                     }
                 }
-            ]
-        },
-
-        {
-            "branch": "hotfix",
-            "jobs":[
-                {
-                    "name": "hotfix_ci",
-                    "template": "node",
-                    "shell":[
-                        "npm install"
-                    ],
-                    "extendedEmailEnabled": true,
-                    "triggersAlwaysEnabled": true
-                },
-
-                {
-                    "name": "hotfix_opbuild",
-                    "template": "node",
-                    "triggersUpstream": "hotfix_ci",
-                    "shell":[
-                        "npm install \n"
-                    ],
-                    "extendedEmailEnabled": true,
-                    "triggersFailureEnabled": true,
-                    "triggersFixedEnabled": true
-                },
-
-                {
-                    "name": "hotfix_e2e",
-                    "template": "protractor",
-                    "triggerEnabled": true,
-                    "triggersUpstream": "hotfix_opbuild",
-                    "shell":[
-                        "npm install \n"
-                    ],
-                    "publishers":{
-                        "artifactArchiverEnabled": true,
-                        "extendedEmailEnabled": true,
-                        "triggersFailureEnabled": true,
-                        "triggersFixedEnabled": true
-                    }
-                },
-
-                {
-                    "name": "hotfix_merge",
-                    "template": "node",
-                    "triggersUpstream": "hotfix_e2e",
-                    "git":{
-                        "name": "Template.Docs",
-                        "mergeOptions": true,
-                        "mergeBranch": "release",
-                        "mergeRemote": "Template.Docs"
-                    },
-                    "shellEnabled": false,
-                    "gitPublisherEnabled": true
-                }
-            ]
-        },
-
-        {
-            "branch": "master",
-            "jobs":[
-                {
-                    "name": "master_ci",
-                    "template": "node",
-                    "shell":[
-                        "npm install",
-                        "npm run opst init",
-                        "npm run opst -- deployTheme -B ${codeBranch}"
-                    ],
-                    "extendedEmailEnabled": true,
-                    "triggersAlwaysEnabled": true
-                }
-
             ]
         }
     ]
