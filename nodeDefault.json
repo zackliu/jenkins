@@ -29,7 +29,7 @@
         "upstream": null
     },
     
-    "shellEnabled": true,
+    "shellEnabled": false,
     "shell": null,
 
     "publishersEnabled": true,

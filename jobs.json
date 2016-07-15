@@ -5,15 +5,23 @@
             "branch": "develop",
             "jobs":[
                 {
-                    "name": "develop_ci",
                     "template": "node",
+                    "name": "develop_ci",
+
+                    "shellEnabled": true,
                     "shell":[
                         "npm install",
                         "npm run opst init",
                         "npm run opst -- deployTheme -B ${codeBranch}"
                     ],
-                    "extendedEmailEnabled": true,
-                    "triggersAlwaysEnabled": true
+                    
+                    "publishersEnabled":true,
+                    "publishers":{
+                        "extendedEmailEnabled": true,
+                        "extendedEmail":{
+                            "triggersAlwaysEnabled": true
+                        }
+                    }
                 },
 
                 {
