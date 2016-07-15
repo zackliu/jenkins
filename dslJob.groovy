@@ -4,9 +4,9 @@ import groovy.json.JsonSlurper
 def jsonPayloadJobs = new URL("https://raw.githubusercontent.com/zackliu/jenkins/master/jobs.json").getText()
 def jsonPayloadNode = new URL("https://raw.githubusercontent.com/zackliu/jenkins/master/nodeDefault.json").getText()
 def jsonPayloadE2e = new URL("https://raw.githubusercontent.com/zackliu/jenkins/master/e2eDefault.json").getText()
-def jobsSettings = new JsonSlurper().parseText(jsonPayloadJobs)
-def nodeSettings = new JsonSlurper().parseText(jsonPayloadNode)
-def e2eSettings = new JsonSlurper().parseText(jsonPayloadE2e)
+jobsSettings = new JsonSlurper().parseText(jsonPayloadJobs)
+nodeSettings = new JsonSlurper().parseText(jsonPayloadNode)
+e2eSettings = new JsonSlurper().parseText(jsonPayloadE2e)
 
 def getParameter(variable, defaultSettings, userSettings)
 {
@@ -166,10 +166,19 @@ def createBranch(userSettings)
     userSettings.jobs.each
     {
         jobSettings ->
-        def defaultSettings = null
-        if(jobSettings.template == "nodeDefault") defaultSettings = nodeSettings
-        else if (jobSettings.template == "e2eDefault") defaultSettings = e2eSettings
-        createJob(defaultSettings, jobSettings)
+        if(jobSettings.template == "nodeDefault")
+        {
+
+            createJob(nodeSettings, jobSettings)
+        }
+        else if (jobSettings.template == "e2eDefault")
+        {
+            createJob(e2eSettings, jobSettings)
+        }
+        else
+        {
+            createJob(null, jobSettings)
+        }
     }
 }
 

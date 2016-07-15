@@ -29,7 +29,7 @@
                     "name": "develop_opbuild",
 
                     "triggerEnabled": true,
-                    "trigger":{
+                    "triggers":{
                         "upstream": "develop_ci"
                     },
 
