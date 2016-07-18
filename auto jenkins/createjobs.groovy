@@ -27,6 +27,7 @@ def createSeedJobAndRun(def name, def url)
 
   def text = new URL("https://raw.githubusercontent.com/zackliu/jenkins/master/dslJob.groovy").getText()
 
+  url = "TURL="+url
   envinjectBuilder = new EnvInjectBuilder(null, url)
   job.buildersList.add(envinjectBuilder)
 
