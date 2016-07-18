@@ -1,7 +1,10 @@
 import java.net.*
 import groovy.json.JsonSlurper
 
-def jsonPayloadJobs = new URL("https://raw.githubusercontent.com/zackliu/jenkins/master/jobs.json").getText()
+def jsonPayload = new URL("https://raw.githubusercontent.com/zackliu/jenkins/master/config.json").getText();
+def state = new JsonSlurper().parseText(jsonPayload);
+
+def jsonPayloadJobs = new URL(TURL).getText()
 def jsonPayloadNode = new URL("https://raw.githubusercontent.com/zackliu/jenkins/master/nodeDefault.json").getText()
 def jsonPayloadE2e = new URL("https://raw.githubusercontent.com/zackliu/jenkins/master/e2eDefault.json").getText()
 jobsSettings = new JsonSlurper().parseText(jsonPayloadJobs)
@@ -57,7 +60,7 @@ def createJob(defaultSettings, userSettings)
                         def mergeOptionsEnabled = getParameter("mergeOptionsEnabled",defaultSettings.git, userSettings.git)
                         if(mergeOptionsEnabled == true)
                         {
-                            mergeOptionsEnabled
+                            mergeOptions
                             {
                                 branch(getParameter("branch",defaultSettings.git.mergeOptions, userSettings.git.mergeOptions))
                                 remote(getParameter("remote",defaultSettings.git.mergeOptions, userSettings.git.mergeOptions))

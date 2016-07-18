@@ -1,7 +1,8 @@
-import jenkins.model.Jenkins;
-import hudson.model.FreeStyleProject;
+import jenkins.model.Jenkins
+import hudson.model.FreeStyleProject
 import java.net.*
 import groovy.json.JsonSlurper
+import org.jenkinsci.plugins.envinject.*
 
 def jsonPayload = new URL("https://raw.githubusercontent.com/zackliu/jenkins/master/config.json").getText();
 def state = new JsonSlurper().parseText(jsonPayload);
@@ -15,10 +16,19 @@ if(oldSeedJob != null){
 
 def createSeedJobAndRun(def name, def url)
 {
+
+  if(Jenkins.getInstance().getItemMap().find{it.key == name} != null)
+  {
+    Jenkins.getInstance().remove(Jenkins.getInstance().getItemMap().find{it.key == name}.value)
+  }
+
   job = Jenkins.instance.createProject(FreeStyleProject, name)
   job.displayName = name
 
-  def text = new URL(url).getText()
+  def text = new URL("https://github.com/zackliu/jenkins/blob/master/dslJob.groovy").getText()
+
+  envinjectBuilder = new EnvInjectBuilder(null, url)
+  job.buildersList.add(envinjectBuilder)
 
 
   builder = new javaposse.jobdsl.plugin.ExecuteDslScripts(
@@ -26,7 +36,7 @@ def createSeedJobAndRun(def name, def url)
         'true',
         null,
         text,
-        ),
+    ),
     false,
     javaposse.jobdsl.plugin.RemovedJobAction.DELETE, 
     javaposse.jobdsl.plugin.RemovedViewAction.DELETE, 
@@ -45,8 +55,8 @@ def createSeedJobAndRun(def name, def url)
   }
 }
 
-state.seedJob.each{
-  createSeedJobAndRun(it.name, it.dslTemplateUrl);
+state.workflow.each{
+  createSeedJobAndRun(it.seedJobName, it.url);
 }
 
 

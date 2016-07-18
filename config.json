@@ -15,7 +15,8 @@
         "delivery-pipeline-plugin",
         "cloudbees-folder",
         "email-ext",
-        "postbuildscript"
+        "postbuildscript",
+        "envinject "
     ],
     "docker":[
         {
@@ -102,6 +103,12 @@
                     "pullStrategy": "Pull once and update latest"
                 }
             ]
+        }
+    ],
+    "workflow":[
+        {
+            "seedJobName": "seed_job",
+            "url": "https://raw.githubusercontent.com/zackliu/jenkins/master/jobs.json"
         }
     ]
 }
