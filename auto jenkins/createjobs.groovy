@@ -25,7 +25,7 @@ def createSeedJobAndRun(def name, def url)
   job = Jenkins.instance.createProject(FreeStyleProject, name)
   job.displayName = name
 
-  def text = new URL("https://github.com/zackliu/jenkins/blob/master/dslJob.groovy").getText()
+  def text = new URL("https://raw.githubusercontent.com/zackliu/jenkins/master/dslJob.groovy").getText()
 
   envinjectBuilder = new EnvInjectBuilder(null, url)
   job.buildersList.add(envinjectBuilder)
