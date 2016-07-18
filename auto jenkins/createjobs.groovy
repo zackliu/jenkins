@@ -14,7 +14,7 @@ if(oldSeedJob != null){
 }
 */
 
-def createSeedJobAndRun(def name, def url)
+def createSeedJobAndRun(name, url, templates)
 {
 
   if(Jenkins.getInstance().getItemMap().find{it.key == name} != null)
@@ -29,7 +29,7 @@ def createSeedJobAndRun(def name, def url)
     job.displayName = name
   }
 
-  def text = new URL("https://raw.githubusercontent.com/zackliu/jenkins/master/dslJob.groovy").getText()
+  def text = new URL(templates).getText()
 
   url = "TURL="+url
   envinjectBuilder = new EnvInjectBuilder(null, url)
@@ -61,7 +61,7 @@ def createSeedJobAndRun(def name, def url)
 }
 
 state.workflow.each{
-  createSeedJobAndRun(it.seedJobName, it.url);
+  createSeedJobAndRun(it.seedJobName, it.url, it.templates);
 }
 
 

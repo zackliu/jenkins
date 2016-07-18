@@ -108,7 +108,8 @@
     "workflow":[
         {
             "seedJobName": "seed_job",
-            "url": "https://raw.githubusercontent.com/zackliu/jenkins/master/jobs.json"
+            "url": "https://raw.githubusercontent.com/zackliu/jenkins/master/jobs.json",
+            "templates": "https://raw.githubusercontent.com/zackliu/jenkins/master/dslJob.groovy"
         }
     ]
 }
