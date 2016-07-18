@@ -19,11 +19,15 @@ def createSeedJobAndRun(def name, def url)
 
   if(Jenkins.getInstance().getItemMap().find{it.key == name} != null)
   {
-    Jenkins.getInstance().remove(Jenkins.getInstance().getItemMap().find{it.key == name}.value)
+  //  Jenkins.getInstance().remove(Jenkins.getInstance().getItemMap().find{it.key == name}.value)
+    job = Jenkins.getInstance().getItemMap().find{it.key == name}.value
+    job.buildersList.clear()
   }
-
-  job = Jenkins.instance.createProject(FreeStyleProject, name)
-  job.displayName = name
+  else
+  {
+    job = Jenkins.instance.createProject(FreeStyleProject, name)
+    job.displayName = name
+  }
 
   def text = new URL("https://raw.githubusercontent.com/zackliu/jenkins/master/dslJob.groovy").getText()
 
