@@ -16,6 +16,6 @@ job("jobMonitor")
 
     steps
     {
-        shell("node createjobs.js")
+        shell("node /srv/createjobs/createjobs.js")
     }
 }
