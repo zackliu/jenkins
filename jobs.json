@@ -23,7 +23,25 @@
                         }
                     }
                 },
+                {
+                    "template": "nodeDefault",
+                    "name": "develop22_ci",
 
+                    "shellEnabled": true,
+                    "shell":[
+                        "npm install",
+                        "npm run opst init",
+                        "npm run opst -- deployTheme -B ${codeBranch}"
+                    ],
+
+                    "publishersEnabled":true,
+                    "publishers":{
+                        "extendedEmailEnabled": true,
+                        "extendedEmail":{
+                            "triggersAlwaysEnabled": true
+                        }
+                    }
+                },
                 {
                     "template": "nodeDefault",
                     "name": "develop_opbuild",
