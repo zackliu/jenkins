@@ -1,5 +1,6 @@
 import com.nirima.jenkins.plugins.docker.*
 import com.nirima.jenkins.plugins.docker.launcher.*
+import com.nirima.jenkins.plugins.docker.strategy.*
 import net.sf.json.JSONArray
 import net.sf.json.JSONObject
 import org.kohsuke.stapler.StaplerRequest
@@ -16,7 +17,7 @@ def state = new JsonSlurper().parseText(jsonPayload);
 def bindJSONToList( Class type, def src) {
     if(type == DockerTemplate){
         ArrayList<DockerTemplate> r = new ArrayList<DockerTemplate>();
-        
+
         src.each{
             dockertemp ->
             r.add(
@@ -46,7 +47,7 @@ def bindJSONToList( Class type, def src) {
                     Node.Mode.EXCLUSIVE,
                     dockertemp.numExecutors,
                     new DockerComputerSSHLauncher(new SSHConnector(22, "jenkins-slave-password", "", "", "", "", null, 0, 0)),
-                    null,
+                    new DockerOnceRetentionStrategy(10),
                     false,
                     DockerImagePullStrategy.PULL_LATEST
                 )

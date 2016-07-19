@@ -10,12 +10,12 @@ job("jobMonitor")
                 url("https://github.com/zackliu/jenkins")
                 credentials("67644618-a3e9-4742-8c2e-82479635844d")
             }
-            branch("jobConfig")
+            branch("master")
         }
     }
 
     steps
     {
-        shell("node /srv/createjobs/createjobs.js")
+        shell("sudo node createjobs.js")
     }
 }

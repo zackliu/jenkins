@@ -14,7 +14,7 @@ store = Jenkins.instance.getExtensionList('com.cloudbees.plugins.credentials.Sys
 usernameAndPassword = new UsernamePasswordCredentialsImpl(
   CredentialsScope.GLOBAL,
   "jenkins-slave-password", "Jenkis Slave with Password Configuration",
-  "root",
+  "jenkins",
   "jenkins"
 )
 
