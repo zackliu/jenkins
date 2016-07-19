@@ -1,7 +1,6 @@
 {
     "url" : "http://sitexpagents.eastasia.cloudapp.azure.com:8080/",
     "user" : [
-
         {"username" : "admin", "password" : "admin"},
         {"username" : "test", "password" : "test"}
     ],
@@ -101,14 +100,41 @@
                     "numExecutors": 1,
                     "removeVolume": false,
                     "pullStrategy": "Pull once and update latest"
+                },
+                {
+                    "image": "createjobs",
+                    "dnsString": "",
+                    "network": "",
+                    "dockerCommand": "",
+                    "volumesString": "",
+                    "volumesFromString": "",
+                    "environmentsString": "",
+                    "lxcConfString": "",
+                    "hostname": "",
+                    "memoryLimit": null,
+                    "memorySwap": null,
+                    "cpuShares": null,
+                    "bindPorts": "",
+                    "bindAllPorts": false,
+                    "privileged": true,
+                    "tty": false,
+                    "labelString": "createJob_slave",
+                    "remoteFs": "/home/jenkins",
+                    "remoteFsMapping": "/home/jenkins",
+                    "instanceCapStr": "1",
+                    "numExecutors": 1,
+                    "removeVolume": false,
+                    "pullStrategy": "Pull once and update latest"
                 }
             ]
         }
     ],
+    "jobMonitor": "https://raw.githubusercontent.com/zackliu/jenkins/master/jobMonitor.groovy",
     "workflow":[
         {
             "seedJobName": "seed_job",
-            "url": "https://raw.githubusercontent.com/zackliu/jenkins/master/jobs.json"
+            "url": "https://raw.githubusercontent.com/zackliu/jenkins/master/jobs.json",
+            "templates": "https://raw.githubusercontent.com/zackliu/jenkins/master/dslJob.groovy"
         }
     ]
 }

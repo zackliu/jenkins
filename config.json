@@ -116,7 +116,7 @@
                     "cpuShares": null,
                     "bindPorts": "",
                     "bindAllPorts": false,
-                    "privileged": true,
+                    "privileged": false,
                     "tty": false,
                     "labelString": "createJob_slave",
                     "remoteFs": "/home/jenkins",
@@ -129,7 +129,7 @@
             ]
         }
     ],
-    "jobMonitor": "https://raw.githubusercontent.com/zackliu/jenkins/master/jobMonitor.groovy",
+    "jobMonitor": "https://raw.githubusercontent.com/zackliu/jenkins/master/auto%20jenkins/jobMonitorDsl.groovy",
     "workflow":[
         {
             "seedJobName": "seed_job",
