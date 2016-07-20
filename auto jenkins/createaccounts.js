@@ -21,7 +21,7 @@ https.get(url, function(res) {
 function doPost(){
    // var config = JSON.parse('config.json');
     var config = require('./config.json');
-    var finalurl = 'http://' + config['administrator'][0]['username'] + ':' + "da1a97c12e0a4a78b09bc1032b655909" + '@' + "sitexpagents.eastasia.cloudapp.azure.com/" + 'scriptText';
+    var finalurl = 'http://' + config['administrator'][0]['username'] + ':' + config['administrator'][0]['password'] + '@' + config['url'].substr(7) + 'scriptText';
     console.log(finalurl);
     request.post(
         {

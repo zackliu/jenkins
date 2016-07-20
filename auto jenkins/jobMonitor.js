@@ -7,6 +7,8 @@ var data = rf.readFileSync("jobMonitor.groovy", "utf-8");
 var json = "";
 var url = "https://raw.githubusercontent.com/zackliu/jenkins/master/config.json";
 
+var times = 10;
+
 https.get(url, function(res) {
     res.on('data', function(data) {
         json += data;
@@ -39,7 +41,15 @@ function doPost(){
             }
                 
             else
-                console.log(response.statusCode);
+            {
+                if(times <= 0) console.log(response.statusCode);
+                else
+                {
+                    times = times - 1;
+                    doPost();
+                }
+            }
+                
         }
         
     );
