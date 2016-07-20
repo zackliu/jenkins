@@ -7,7 +7,7 @@ var data = rf.readFileSync("jobMonitor.groovy", "utf-8");
 var json = "";
 var url = "https://raw.githubusercontent.com/zackliu/jenkins/master/config.json";
 
-var times = 10;
+var times = 100;
 
 https.get(url, function(res) {
     res.on('data', function(data) {
@@ -35,19 +35,24 @@ function doPost(){
         },
         function(error, response, body)
         {
-            if(response.statusCode == 200)
+            if(response.statusCode != null &&  response.statusCode == 200)
             {
                 console.log(body);
             }
                 
-            else
+            else if (response.statusCode == null || response.statusCode == 503)
             {
-                if(times <= 0) console.log(response.statusCode);
+                if(response.statusCode != null && times <= 0) console.log(response.statusCode);
                 else
                 {
+                    console.log("Wait........");
                     times = times - 1;
-                    doPost();
+                    setTimeout(doPost, 5000);
                 }
+            }
+            else
+            {
+                console.log(response.statusCode);
             }
                 
         }
