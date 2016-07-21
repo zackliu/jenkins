@@ -3,6 +3,21 @@ import hudson.security.*
 import java.net.*
 import groovy.json.JsonSlurper
 
+checkedTimes = 3
+
+def checkStarted()
+{
+  if(Jenkins.instance == null)
+  {
+    checkedTimes = checkedTimes - 1
+    if(checkedTimes <= 0) exit(1)
+    sleep(5000)
+    checkStarted()
+  }
+  return
+}
+
+checkStarted()
 
 pm = Jenkins.instance.pluginManager
 uc = Jenkins.instance.updateCenter

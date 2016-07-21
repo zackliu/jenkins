@@ -14,6 +14,25 @@ import groovy.json.JsonSlurper
 def jsonPayload = new URL("https://raw.githubusercontent.com/zackliu/jenkins/master/config.json").getText();
 def state = new JsonSlurper().parseText(jsonPayload);
 
+checkedTimes = 3
+
+def checkStarted()
+{
+  if(Jenkins.instance == null)
+  {
+    checkedTimes = checkedTimes - 1
+    if(checkedTimes <= 0) exit(1)
+    sleep(5000)
+    checkStarted()
+  }
+  return
+}
+
+checkStarted()
+
+
+
+
 def bindJSONToList( Class type, def src) {
     if(type == DockerTemplate){
         ArrayList<DockerTemplate> r = new ArrayList<DockerTemplate>();

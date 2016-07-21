@@ -35,14 +35,14 @@ function doPost(){
         },
         function(error, response, body)
         {
-            if(response.statusCode != null &&  response.statusCode == 200)
+            if(response != null &&  response.statusCode == 200)
             {
                 console.log(body);
             }
                 
-            else if (response.statusCode == null || response.statusCode == 503)
+            else if (response == null || response.statusCode == 503)
             {
-                if(response.statusCode != null && times <= 0) console.log(response.statusCode);
+                if(response != null && times <= 0) console.log(response.statusCode);
                 else
                 {
                     console.log("Wait........");
