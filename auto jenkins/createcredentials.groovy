@@ -4,7 +4,8 @@ import com.cloudbees.plugins.credentials.common.*
 import com.cloudbees.plugins.credentials.domains.*
 import com.cloudbees.plugins.credentials.impl.*
 import com.cloudbees.jenkins.plugins.sshcredentials.impl.*
-import hudson.plugins.sshslaves.*;
+import hudson.plugins.sshslaves.*
+import groovy.json.JsonSlurper
 
 def jsonPayload = new URL("https://raw.githubusercontent.com/zackliu/jenkins/master/config.json").getText();
 def state = new JsonSlurper().parseText(jsonPayload);
