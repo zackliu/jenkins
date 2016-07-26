@@ -29,10 +29,7 @@
 
                     "shellEnabled": true,
                     "shell":[
-                        "npm install",
-                        "npm run opst init",
-                        "git clone https://andxu:${andy_password}@",
-                        "npm run opst -- deployTheme -B ${codeBranch}"
+                        "npm install"
                     ],
 
                     "publishersEnabled":true,
