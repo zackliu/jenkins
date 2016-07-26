@@ -34,6 +34,20 @@
         "postbuildscript",
         "envinject"
     ],
+    "credentials":[
+        {
+            "id": "jenkins-slave-password",
+            "description": "Jenkis Slave with Password Configuration",
+            "username": "jenkins",
+            "password": "jenkins"
+        },
+        {
+            "id": "zackliu-github",
+            "description": "Github with Password Configuration",
+            "username": "zackliu",
+            "password": "Liupaopa0"
+        }
+    ],
     "docker":[
         {
             "name": "cloud",
