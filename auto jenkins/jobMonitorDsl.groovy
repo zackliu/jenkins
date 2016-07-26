@@ -13,6 +13,11 @@ job("jobMonitor")
             branch("master")
         }
     }
+    
+    triggers
+    {
+        scm()
+    }
 
     steps
     {
