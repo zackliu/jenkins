@@ -6,10 +6,47 @@ import com.cloudbees.plugins.credentials.impl.*
 import com.cloudbees.jenkins.plugins.sshcredentials.impl.*
 import hudson.plugins.sshslaves.*;
 
+def jsonPayload = new URL("https://raw.githubusercontent.com/zackliu/jenkins/master/config.json").getText();
+def state = new JsonSlurper().parseText(jsonPayload);
+
+
+checkedTimes = 3
+
+def checkStarted()
+{
+  if(Jenkins.instance == null)
+  {
+    checkedTimes = checkedTimes - 1
+    if(checkedTimes <= 0) exit(1)
+    sleep(5000)
+    checkStarted()
+  }
+  return
+}
+
+checkStarted()
+
 
 //create credentials
 domain = Domain.global()
 store = Jenkins.getInstance().getExtensionList('com.cloudbees.plugins.credentials.SystemCredentialsProvider')[0].getStore()
+
+state.credentials.each
+{
+  usernameAndPassword = new UsernamePasswordCredentialsImpl(
+    CredentialsScope.GLOBAL,
+    it.id, //ID
+    it.description, //Description
+    it.username, //Username
+    it.password //Password
+  )
+
+  store.addCredentials(domain, usernameAndPassword) //return true or false
+}
+
+
+/*
+
 usernameAndPassword = new UsernamePasswordCredentialsImpl(
   CredentialsScope.GLOBAL,
   "jenkins-slave-password", //ID
@@ -20,7 +57,16 @@ usernameAndPassword = new UsernamePasswordCredentialsImpl(
 
 store.addCredentials(domain, usernameAndPassword) //return true or false
 
+usernameAndPassword = new UsernamePasswordCredentialsImpl(
+  CredentialsScope.GLOBAL,
+  "zackliu-github", //ID
+  "Github with Password Configuration", //Description
+  "jenkins", //Username
+  "jenkins" //Password
+)
 
+store.addCredentials(domain, usernameAndPassword) 
+/*
 //print credentials
 creds = com.cloudbees.plugins.credentials.CredentialsProvider.lookupCredentials(
          com.cloudbees.plugins.credentials.common.StandardUsernameCredentials.class,
@@ -47,3 +93,4 @@ if ( envVarsNodePropertyList == null || envVarsNodePropertyList.size() == 0 ) {
 envVars.put("FOO", "foo") //<Key, Value>
 
 instance.save()
+*/
