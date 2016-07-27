@@ -1,7 +1,7 @@
 import java.net.*
 import groovy.json.JsonSlurper
 
-def jsonPayload = new URL("https://raw.githubusercontent.com/zackliu/jenkins/master/config.json").getText();
+def jsonPayload = readFileFromWorkspace("git/jobs.json")
 def state = new JsonSlurper().parseText(jsonPayload);
 
 def jsonPayloadJobs = new URL(TURL).getText()
