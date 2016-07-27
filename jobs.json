@@ -29,7 +29,7 @@
 
                     "shellEnabled": true,
                     "shell":[
-                        "npm install"
+                        "npm install",
                         "node"
                     ],
 
