@@ -23,7 +23,13 @@ def getParameter(variable, defaultSettings, userSettings)
 def createJob(defaultSettings, userSettings)
 {
     def jobName = getParameter("name", defaultSettings, userSettings)
+    def folderName = ""
     if(jobName == null) return
+    if(jobsSettings.folder != null)
+    {
+        folderName = jobsSettings.folder
+        jobName = folderName + '/' + jobName 
+    }
     job(jobName)
     {
         def labelExpression = getParameter("label",defaultSettings, userSettings)
@@ -187,6 +193,14 @@ def createBranch(userSettings)
 
 def createWorkflow(userSettings)
 {
+    if(userSettings.folder != null)
+    {
+        folder(userSettings.folder)
+        {
+            displayName(userSettings.folder)
+        }
+    }
+
     partner = userSettings.partner
     userSettings.workflow.each
     {
