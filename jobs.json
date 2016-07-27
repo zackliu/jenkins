@@ -43,6 +43,23 @@
                
                 {
                     "template": "nodeDefault",
+                    "name": "develop22778_ci",
+
+                    "shellEnabled": true,
+                    "shell":[
+                        "npm install"
+                    ],
+
+                    "publishersEnabled":true,
+                    "publishers":{
+                        "extendedEmailEnabled": true,
+                        "extendedEmail":{
+                            "triggersAlwaysEnabled": true
+                        }
+                    }
+                },
+                {
+                    "template": "nodeDefault",
                     "name": "develop_opbuild",
 
                     "triggerEnabled": true,
