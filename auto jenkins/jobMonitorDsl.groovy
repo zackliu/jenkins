@@ -21,6 +21,6 @@ job("jobMonitor")
 
     steps
     {
-        shell("sudo node createjobs.js")
+        shell("cd /home/jenkins/createjobs && sudo node createjobs.js")
     }
 }
