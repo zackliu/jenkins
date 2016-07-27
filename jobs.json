@@ -11,8 +11,7 @@
                     "shellEnabled": true,
                     "shell":[
                         "npm install",
-                        "npm run opst init",
-                        "npm run opst -- deployTheme -B ${codeBranch}"
+                        "npm run opst init"
                     ],
 
                     "publishersEnabled":true,
