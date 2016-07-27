@@ -53,11 +53,20 @@ def createSeedJobAndRun(name, url, templates)
   job.buildersList.add(envinjectBuilder)
 
 
+  shellBuilder = new hudson.tasks.Shell(["rm -rf /var/jenkins_home/jobs/seed_job/workspace/git",
+                                        "mkdir -p /var/jenkins_home/jobs/seed_job/workspace/git",
+                                        "cd /var/jenkins_home/jobs/seed_job/workspace/git",
+                                        "git clone https://github.com/zackliu/jenkins.git ."].join('\n'))
+
+
+  job.buildersList.add(shellBuilder)
+
+
   builder = new javaposse.jobdsl.plugin.ExecuteDslScripts(
     new javaposse.jobdsl.plugin.ExecuteDslScripts.ScriptLocation(
-        'true',
-        null,
-        text,
+        "false",
+        "git/dslJob.groovy",
+        null
     ),
     false,
     javaposse.jobdsl.plugin.RemovedJobAction.DELETE, 
