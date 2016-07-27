@@ -16,7 +16,7 @@ job("jobMonitor")
     
     triggers
     {
-        scm()
+        scm('')
     }
 
     steps

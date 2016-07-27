@@ -18,7 +18,7 @@ checkedTimes = 3
 
 def checkStarted()
 {
-  if(Jenkins.instance == null)
+  if(Jenkins == null)
   {
     checkedTimes = checkedTimes - 1
     if(checkedTimes <= 0) exit(1)
