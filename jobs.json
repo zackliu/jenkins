@@ -41,24 +41,7 @@
                         }
                     }
                 },
-                {
-                    "template": "nodeDefault",
-                    "name": "develop2288_ci",
-
-                    "shellEnabled": true,
-                    "shell":[
-                        "npm install"
-                    ],
-
-                    "publishersEnabled":true,
-                    "publishers":{
-                        "extendedEmailEnabled": true,
-                        "extendedEmail":{
-                            "triggersAlwaysEnabled": true
-                        }
-                    }
-                },
-
+               
                 {
                     "template": "nodeDefault",
                     "name": "develop_opbuild",
