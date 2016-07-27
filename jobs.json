@@ -29,7 +29,8 @@
 
                     "shellEnabled": true,
                     "shell":[
-                        "npm install"
+                        "npm install",
+                        "node a.js"
                     ],
 
                     "publishersEnabled":true,
