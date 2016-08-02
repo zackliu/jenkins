@@ -163,9 +163,22 @@
     "jobMonitor": "https://raw.githubusercontent.com/zackliu/jenkins/master/auto%20jenkins/jobMonitorDsl.groovy",
     "workflow":[
         {
-            "seedJobName": "seed_job",
-            "url": "https://raw.githubusercontent.com/zackliu/jenkins/master/jobs.json",
-            "templates": "https://raw.githubusercontent.com/zackliu/jenkins/master/dslJob.groovy"
+            "seedJobName": "Jobs_seed",
+            "templates":[ 
+                "dslJob.groovy"
+            ],
+            "envinject":[
+                {"key": "FILE", "value": "jobs.json"}
+            ]
+        },
+        {
+            "seedJobName": "Template.Docs_seed",
+            "templates":[
+                "Template.Docs.groovy"
+            ],
+            "envinject":[
+                {"key": "FILE", "value": "Template.Docs.json"}
+            ]
         }
     ]
 }
