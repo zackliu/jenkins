@@ -172,12 +172,12 @@
             ]
         },
         {
-            "seedJobName": "Template.Docs_seed",
+            "seedJobName": "Template_Docs_seed",
             "templates":[
-                "Template.Docs.groovy"
+                "Template_Docs.groovy"
             ],
             "envinject":[
-                {"key": "FILE", "value": "Template.Docs.json"}
+                {"key": "FILE", "value": "Template_Docs.json"}
             ]
         }
     ]
