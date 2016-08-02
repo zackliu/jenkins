@@ -44,6 +44,7 @@ def bindJSONToList( Class type, def src) {
                     new DockerTemplateBase(
                         dockertemp.image,
                         dockertemp.dnsString,
+                        null,
                         dockertemp.dockerCommand,
                         dockertemp.volumesString,
                         dockertemp.volumesFromString,
