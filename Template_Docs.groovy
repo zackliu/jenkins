@@ -297,9 +297,7 @@ def execute(settings) {
         allowPipelineStart()
         enableManualTriggers()
         allowRebuild()
-        configure { view ->
-            view / showTestResults(true)
-        }
+        showTestResults(true)
         pipelines {
             component('develop_pipeline', 'develop_ci')
             component('release_pipeline', 'release_ci')
