@@ -2,13 +2,13 @@
     "partnerName": "msdn",
     "ci": {
         "repoUrl": "ssh://mseng@mseng.visualstudio.com:22/VSChina/_git/Template.Docs",
-        "credentialId": "a12a969a-f987-40d6-b8ff-91b0df2a601e", // sitexp ssh key
+        "credentialId": "a12a969a-f987-40d6-b8ff-91b0df2a601e", 
         "mailGroup": "sitexp@microsoft.com, bradyg@microsoft.com, Dan.Fernandez@microsoft.com, Duncan.Mackenzie@microsoft.com, adkinn@microsoft.com, Mike.Sampson@microsoft.com",
         "labelExpression": null
     },
     "opbuild": {
         "repoUrl": "ssh://mseng@mseng.visualstudio.com:22/VSChina/_git/Docs.E2E",
-        "credentialId": "a12a969a-f987-40d6-b8ff-91b0df2a601e", // sitexp ssh key
+        "credentialId": "a12a969a-f987-40d6-b8ff-91b0df2a601e", 
         "mailGroup": "sitexp@microsoft.com, bradyg@microsoft.com, Dan.Fernandez@microsoft.com, Duncan.Mackenzie@microsoft.com, adkinn@microsoft.com, Mike.Sampson@microsoft.com",
         "labelExpression": null,
         "branchMapping": {
@@ -28,7 +28,7 @@
     },
     "e2e":{
         "repoUrl": "ssh://mseng@mseng.visualstudio.com:22/VSChina/_git/Docs.E2E",
-        "credentialId": "a12a969a-f987-40d6-b8ff-91b0df2a601e", // sitexp ssh key
+        "credentialId": "a12a969a-f987-40d6-b8ff-91b0df2a601e", 
         "mailGroup": "sitexp@microsoft.com, bradyg@microsoft.com, Dan.Fernandez@microsoft.com, Duncan.Mackenzie@microsoft.com, adkinn@microsoft.com, Mike.Sampson@microsoft.com, v-dejliu@microsoft.com, v-peliao@microsoft.com, v-yajlu@microsoft.com, v-susu@microsoft.com",
         "labelExpression": "e2e",
         "branchMapping": {
