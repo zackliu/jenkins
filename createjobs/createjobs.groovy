@@ -48,9 +48,9 @@ def createSeedJobAndRun(name, env, templates)
   job.buildersList.add(envinjectBuilder)
 
   //add a shell to clone git to local
-  shellBuilder = new hudson.tasks.Shell(["rm -rf /var/jenkins_home/jobs/seed_job/workspace",
-                                        "mkdir -p /var/jenkins_home/jobs/seed_job/workspace",
-                                        "cd /var/jenkins_home/jobs/seed_job/workspace",
+  shellBuilder = new hudson.tasks.Shell(["rm -rf $WORKSPACE",
+                                        "mkdir -p $WORKSPACE",
+                                        "cd $WORKSPACE",
                                         "git clone https://github.com/zackliu/jenkins.git ."].join('\n'))
   job.buildersList.add(shellBuilder)
 
