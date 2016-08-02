@@ -4,7 +4,7 @@ import groovy.json.JsonSlurper
 def jsonPayload = new URL("https://raw.githubusercontent.com/zackliu/jenkins/master/config.json").getText();
 def state = new JsonSlurper().parseText(jsonPayload);
 
-def jsonPayloadJobs = readFileFromWorkspace("git/jobs.json")
+def jsonPayloadJobs = readFileFromWorkspace($FILE)
 def jsonPayloadNode = new URL("https://raw.githubusercontent.com/zackliu/jenkins/master/nodeDefault.json").getText()
 def jsonPayloadE2e = new URL("https://raw.githubusercontent.com/zackliu/jenkins/master/e2eDefault.json").getText()
 jobsSettings = new JsonSlurper().parseText(jsonPayloadJobs)
