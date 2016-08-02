@@ -1,4 +1,4 @@
-job("jobMonitor")
+job("init/jobMonitor")
 {
     label("createJob_slave")
     scm
