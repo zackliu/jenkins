@@ -3,6 +3,7 @@ import hudson.model.FreeStyleProject
 import java.net.*
 import groovy.json.JsonSlurper
 import org.jenkinsci.plugins.envinject.*
+import com.cloudbees.hudson.plugins.folder.*
 
 def jsonPayload = new URL("https://raw.githubusercontent.com/zackliu/jenkins/master/config.json").getText();
 def state = new JsonSlurper().parseText(jsonPayload);
