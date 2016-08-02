@@ -163,7 +163,7 @@
     "jobMonitor": "https://raw.githubusercontent.com/zackliu/jenkins/master/auto%20jenkins/jobMonitorDsl.groovy",
     "workflow":[
         {
-            "seedJobName": "Jobs_seed",
+            "seedJobName": "INIT/Jobs_seed",
             "templates":[ 
                 "dslJob.groovy"
             ],
