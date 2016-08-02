@@ -72,16 +72,16 @@ def createSeedJobAndRun(name, url, templates, folderName)
   }
 }
 
-if(Jenkins.getInstance().getItemMap().find{it.key == "jobMoniter"} != null)
+if(Jenkins.getInstance().getItemMap().find{it.key == "jobMonitor"} != null)
 {
-  folder = Jenkins.getInstance().getItemMap().find{it.key == "jobMoniter"}.value
+  folder = Jenkins.getInstance().getItemMap().find{it.key == "jobMonitor"}.value
 }
 else
 {
-  folder = Jenkins.getInstance().createProject(Folder, "jobMoniter")
+  folder = Jenkins.getInstance().createProject(Folder, "jobMonitor")
 }
 
-createSeedJobAndRun("jobMonitor_Seed", null, state.jobMonitor, "jobMoniter");
+createSeedJobAndRun("jobMonitor_Seed", null, state.jobMonitor, "jobMonitor");
 
 
 
