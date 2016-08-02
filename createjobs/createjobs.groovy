@@ -29,9 +29,10 @@ def createSeedJobAndRun(name, env, templates, folderName)
 {
   def job = null
   //create a new buildersList if the name hasn't been created
-  if(Jenkins.getInstance().getItemMap().find{it.key == "$folderName/$name"} != null)
+  if(Jenkins.getInstance().getItem("$folderName").getItem("$name")!= null)
   {
-    job = Jenkins.getInstance().getItemMap().find{it.key == "$folderName/$name"}.value
+    //println(Jenkins.getInstance().getItem("$folderName").getItem("$name"))
+    job = Jenkins.getInstance().getItem("$folderName").getItem("$name")
     job.buildersList.clear()
   }
   else
@@ -50,7 +51,7 @@ def createSeedJobAndRun(name, env, templates, folderName)
   job.buildersList.add(envinjectBuilder)
 
   //add a shell to clone git to local
-  def workspace = "/var/jenkins_home/jobs/$folderName/$name/workspace"
+  def workspace = "/var/jenkins_home/jobs/$folderName/jobs/$name/workspace"
   def shellBuilder = new hudson.tasks.Shell(["sudo rm -rf $workspace",
                                         "mkdir -p $workspace",
                                         "cd $workspace",

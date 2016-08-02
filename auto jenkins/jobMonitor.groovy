@@ -29,10 +29,10 @@ checkStarted()
 def createSeedJobAndRun(name, url, templates, folderName)
 {
 
-  if(Jenkins.getInstance().getItemMap().find{it.key == "$folderName/$name"} != null)
+  if(Jenkins.getInstance().getItem("$folderName").getItem("$name")!= null)
   {
-  //  Jenkins.getInstance().remove(Jenkins.getInstance().getItemMap().find{it.key == name}.value)
-    job = Jenkins.getInstance().getItemMap().find{it.key == "$folderName/$name"}.value
+    //println(Jenkins.getInstance().getItem("$folderName").getItem("$name"))
+    job = Jenkins.getInstance().getItem("$folderName").getItem("$name")
     job.buildersList.clear()
   }
   else
