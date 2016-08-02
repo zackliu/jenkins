@@ -3,6 +3,7 @@ import hudson.model.FreeStyleProject
 import java.net.*
 import groovy.json.JsonSlurper
 import org.jenkinsci.plugins.envinject.*
+import com.cloudbees.hudson.plugins.folder.*
 
 def jsonPayload = new URL("https://raw.githubusercontent.com/zackliu/jenkins/master/config.json").getText();
 def state = new JsonSlurper().parseText(jsonPayload);
@@ -25,18 +26,18 @@ checkStarted()
 
 
 
-def createSeedJobAndRun(name, url, templates)
+def createSeedJobAndRun(name, url, templates, folderName)
 {
 
-  if(Jenkins.getInstance().getItemMap().find{it.key == name} != null)
+  if(Jenkins.getInstance().getItemMap().find{it.key == "$folderName/$name"} != null)
   {
   //  Jenkins.getInstance().remove(Jenkins.getInstance().getItemMap().find{it.key == name}.value)
-    job = Jenkins.getInstance().getItemMap().find{it.key == name}.value
+    job = Jenkins.getInstance().getItemMap().find{it.key == "$folderName/$name"}.value
     job.buildersList.clear()
   }
   else
   {
-    job = Jenkins.instance.createProject(FreeStyleProject, name)
+    job = folder.createProject(FreeStyleProject, name)
     job.displayName = name
   }
 
@@ -71,7 +72,16 @@ def createSeedJobAndRun(name, url, templates)
   }
 }
 
-createSeedJobAndRun("jobMonitor_Seed", null, state.jobMonitor);
+if(Jenkins.getInstance().getItemMap().find{it.key == "jobMoniter"} != null)
+{
+  folder = Jenkins.getInstance().getItemMap().find{it.key == "jobMoniter"}.value
+}
+else
+{
+  folder = Jenkins.getInstance().createProject(Folder, "jobMoniter")
+}
+
+createSeedJobAndRun("jobMonitor_Seed", null, state.jobMonitor, "jobMoniter");
 
 
 

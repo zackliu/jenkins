@@ -24,18 +24,18 @@ def checkStarted()
 checkStarted()
 
 
-def createSeedJobAndRun(name, env, templates)
+def createSeedJobAndRun(name, env, templates, folderName)
 {
   def job = null
   //create a new buildersList if the name hasn't been created
-  if(Jenkins.getInstance().getItemMap().find{it.key == name} != null)
+  if(Jenkins.getInstance().getItemMap().find{it.key == "$folderName/$name"} != null)
   {
-    job = Jenkins.getInstance().getItemMap().find{it.key == name}.value
+    job = Jenkins.getInstance().getItemMap().find{it.key == "$folderName/$name"}.value
     job.buildersList.clear()
   }
   else
   {
-    job = Jenkins.instance.createProject(FreeStyleProject, name)
+    job = folder.createProject(FreeStyleProject, name)
     job.displayName = name
   }
 
@@ -86,8 +86,19 @@ def createSeedJobAndRun(name, env, templates)
   }
 }
 
+folderName = "seedJobs"
+
+if(Jenkins.getInstance().getItemMap().find{it.key == folderName} != null)
+{
+  folder = Jenkins.getInstance().getItemMap().find{it.key == folderName}.value
+}
+else
+{
+  folder = Jenkins.getInstance().createProject(Folder, folderName)
+}
+
 state.workflow.each{
-  createSeedJobAndRun(it.seedJobName, it.envinject, it.templates);
+  createSeedJobAndRun(it.seedJobName, it.envinject, it.templates, folderName);
 }
 
 
