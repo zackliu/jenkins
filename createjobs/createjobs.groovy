@@ -26,6 +26,7 @@ checkStarted()
 
 def createSeedJobAndRun(name, env, templates)
 {
+  def job = null
   //create a new buildersList if the name hasn't been created
   if(Jenkins.getInstance().getItemMap().find{it.key == name} != null)
   {
@@ -41,22 +42,22 @@ def createSeedJobAndRun(name, env, templates)
   //inject ENV
   def envList = []
   env.each{
-    envString = it.key+"="+it.value
+    def envString = it.key+"="+it.value
     envList.add(envString)
   }
-  envinjectBuilder = new EnvInjectBuilder(null, envList.join('\n'))
+  def envinjectBuilder = new EnvInjectBuilder(null, envList.join('\n'))
   job.buildersList.add(envinjectBuilder)
 
   //add a shell to clone git to local
   def workspace = "/var/jenkins_home/jobs/"+name+"/workspace"
-  shellBuilder = new hudson.tasks.Shell(["sudo rm -rf $workspace",
+  def shellBuilder = new hudson.tasks.Shell(["sudo rm -rf $workspace",
                                         "mkdir -p $workspace",
                                         "cd $workspace",
                                         "sudo git clone https://github.com/zackliu/jenkins.git ."].join('\n'))
   job.buildersList.add(shellBuilder)
 
   //add templates
-  builder = new javaposse.jobdsl.plugin.ExecuteDslScripts(
+  def builder = new javaposse.jobdsl.plugin.ExecuteDslScripts(
     new javaposse.jobdsl.plugin.ExecuteDslScripts.ScriptLocation(
         "false",
         templates.join('\n'),
@@ -68,6 +69,9 @@ def createSeedJobAndRun(name, env, templates)
     javaposse.jobdsl.plugin.LookupStrategy.JENKINS_ROOT
   )
   job.buildersList.add(builder)
+
+  def postBuilder = new hudson.tasks.Shell("sudo rm -rf $workspace")
+  job.buildersList.add(postBuilder)
 
   //save all builds
   job.save()
