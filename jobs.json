@@ -1,6 +1,6 @@
 {
     "partner": "docs",
-    "folder" : "ops_docs",
+    "folder" : "test",
     "workflow":[
         {
             "branch": "develop",
