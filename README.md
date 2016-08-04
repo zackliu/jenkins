@@ -58,3 +58,6 @@ Jenkins中参数配置
 后续工作
 --------------
         完成Job-DSL config
+
+
+test
