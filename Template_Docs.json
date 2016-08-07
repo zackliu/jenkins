@@ -1,7 +1,7 @@
 {
     "partnerName": "docs",
     "ci": {
-        "repoUrl": "https://mseng.visualstudio.com:22/VSChina/_git/Template.Docs",
+        "repoUrl": "https://mseng.visualstudio.com/VSChina/_git/Template.Docs",
         "credentialId": "9d3a4cd4-baf9-4db0-a8f0-eeaa918104d7", 
         "mailGroup": "t-chenl@microsoft.com",
         "labelExpression": "mono_slave"
