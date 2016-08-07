@@ -16,16 +16,19 @@ First of all, please make sure you have installed Docker already.
 
 ####csharp environment
 This docker image is used to build .net, run .net and run node.js
+
 		cd mono
 		docker build -t csharpslave .
 
 ####protractor environment
 This docker image is used to run protractor test
+
 		cd e2e
 		docker build -t protractorslave .
 
 ###Run Jenkins
 You can run your jenkins with
+
 		docker run -d -p 8080:8080 jenkinsmaster
 
 ###How to configure your Jenkins

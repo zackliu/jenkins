@@ -4,13 +4,13 @@
         "repoUrl": "https://mseng.visualstudio.com:22/VSChina/_git/Template.Docs",
         "credentialId": "9d3a4cd4-baf9-4db0-a8f0-eeaa918104d7", 
         "mailGroup": "t-chenl@microsoft.com",
-        "labelExpression": null
+        "labelExpression": "mono_slave"
     },
     "opbuild": {
         "repoUrl": "https://mseng.visualstudio.com/VSChina/_git/Docs.E2E",
         "credentialId": "9d3a4cd4-baf9-4db0-a8f0-eeaa918104d7", 
         "mailGroup": "t-chenl@microsoft.com",
-        "labelExpression": null,
+        "labelExpression": "mono_slave",
         "branchMapping": {
             "develop": {
                 "contentBranch": "docs_develop_e2e",
@@ -30,7 +30,7 @@
         "repoUrl": "https://mseng.visualstudio.com/VSChina/_git/Docs.E2E",
         "credentialId": "9d3a4cd4-baf9-4db0-a8f0-eeaa918104d7", 
         "mailGroup": "t-chenl@microsoft.com",
-        "labelExpression": "e2e",
+        "labelExpression": "e2e_slave",
         "branchMapping": {
             "develop": {
                 "sourceBranch": "develop",
