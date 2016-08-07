@@ -144,7 +144,7 @@ def createE2eJob(jobName, upstreamJobName, jobSettings, testBranch) {
                 'npm install',
                 'npm update',
                 'sed -i \'s/maxInstances: 6/maxInstances: 2/g\' test/Docs/protractor.config.js',
-                'gulp clean'
+                'gulp clean',
                 "gulp e2e --configFile ${e2eSettings['configFile']} --baseUrl ${e2eSettings['baseUrl']} --branchName ${e2eSettings['contentBranch']}"
                 ].join('\n'))
         }
