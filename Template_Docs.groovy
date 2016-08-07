@@ -137,8 +137,14 @@ def createE2eJob(jobName, upstreamJobName, jobSettings, testBranch) {
         }
         steps {
             shell([
+                '#!/bin/bash',
+                'export DISPLAY=:0',
+                'sudo Xvfb :0 -ac -screen 0 1920x1080x24 &',
+                'webdriver-manager start &',
                 'npm install',
-                'gulp clean',
+                'npm update',
+                'sed -i \'s/maxInstances: 6/maxInstances: 2/g\' test/Docs/protractor.config.js',
+                'gulp clean'
                 "gulp e2e --configFile ${e2eSettings['configFile']} --baseUrl ${e2eSettings['baseUrl']} --branchName ${e2eSettings['contentBranch']}"
                 ].join('\n'))
         }
@@ -251,7 +257,7 @@ def execute(settings) {
             'npm install',
             'npm update',
             'npm run opst init',
-            "npm run opst -- deployTheme -B ops_${it}"
+            "npm run opst -- deployTheme -B docker_${it}"
         ]
         def locBuildSteps = [
             'npm install',

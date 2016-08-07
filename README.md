@@ -1,63 +1,47 @@
-利用jenkins,docker进行自动化部署
+CI/CD with Jenkins and Docker 
 =================================
 
-安装方式（处于测试阶段，无法保证安装成功 ）
--------------
+##About
+With this project, you can build up your jenkins in docker by command line.
+You can specify your plugins, configurations by JSON.
+You can maintain your jobs with source control. And once you push a new job config, jobs in Jenkins will be configured itself.
 
+##Usage
+First of all, please make sure you have installed Docker already.
 
-##jenkins:
-        jenkins-data:用于生成data-volume  
-        生成：docker build -t jenkinsdata jenkins-data/.
-        运行：docker run --name=jenkins-data jenkinsdata
+###Build images
+####jenkins
+		cd jenkins/jenkins-master
+		docker build -t jenkinsmaster .
 
-        jenkins-master:用于生成jenkins主体
-        生成：docker build -t jenkinsmaster jenkins-master/.
-        运行: docker run -p 80:8080 -p 50000:50000 --name=jenkins-master --volumes-from=jenkins-data -d jinkinsmaster
+####csharp environment
+This docker image is used to build .net, run .net and run node.js
+		cd mono
+		docker build -t csharpslave .
 
-        成功运行后添加插件：docker plugins, github pulgins
+####protractor environment
+This docker image is used to run protractor test
+		cd e2e
+		docker build -t protractorslave .
 
-##node-slave:
-        node-slave用于测试node
-        生成：docker build -t nodeslave node-slave/.
-        不需要手动运行
+###Run Jenkins
+You can run your jenkins with
+		docker run -d -p 8080:8080 jenkinsmaster
 
-##csharp-slave:
-        生成：docker build -t csharpslave csharp/.
+###How to configure your Jenkins
+The main config file is config.json
+You can specify your url(It's very important and don't use local url), credentials, administrator, plugins and workflow
+If you want to config it after Jenkins init, you can run node file in autojenkins folder.
 
-##protractor:
-        生成：docker build -t protractor e2e/.
+###How to configure your jobs
+You can add some json files or groovy files in repo, and then you must specify these file in config.json. Once you commit, Jenkins will
+be triggered and update all the jobs.
 
-Jenkins中参数配置
---------------
-##Credentials设置
-        建立doman为global的credentials，选择Username with password，输入node-slave中Jenkins账户的用户名和密码。
+###Change repo
+It may be complex if you want to change a job-config repo. You need to change url of config file in each groovy file and node file.
 
-##Cloud设置
-        选择Docker，Name自定，Docker URL:需要能够读到Docker API的地址，目前docker运行在ACS上，找到docker swarm的地址
-        此处为http://172.16.0.5:2375
-        Label假设为node_slave
-        Image选择nodeslave，Remote Filing System Root，Remote FS Root Mapping都设置为/home/jenkins
-        Credentials选择之前创立的
-
-##自动配置方式（NEW）
-		使用auto jenkins中的js文件进行配置
-		createaccounts: 创建账户
-		createcredentials：创建credentials
-		createdocker: 建立docker template
-		installplugins: 更新和安装插件
-		createjobs：自动配置job（未完成）
-		
-		使用config.json进行配置
-
-
-
-创立新JOB
-----------------
-        Restrict where this project can be run选择node_slave即可。
-
-后续工作
---------------
-        完成Job-DSL config
-
-
-test
+###Known issues
+I found that raw.github.com may not change at once you do a commit or your repo may not support raw text. You should change the line
+"def jsonPayload = new URL("https://raw.githubusercontent.com/zackliu/jenkins/master/config.json").getText();" into what I've written
+in createjobs/createjobs.groovy.
+I will fix it later.
