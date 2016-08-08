@@ -11,29 +11,29 @@ First of all, please make sure you have installed Docker already.
 
 ###Build images
 ####jenkins
-		cd jenkins/jenkins-master
-		docker build -t jenkinsmaster .
+		cd jenkins
+		docker build -t jenkins .
 
 ####csharp environment
 This docker image is used to build .net, run .net and run node.js
 
 		cd mono
-		docker build -t csharpslave .
+		docker build -t mono_slave .
 
 ####protractor environment
 This docker image is used to run protractor test
 
 		cd e2e
-		docker build -t protractorslave .
+		docker build -t e2e_slave .
 
 ###Run Jenkins
 You can run your jenkins with
 
-		docker run -d -p 8080:8080 jenkinsmaster
+		docker run -d -p 8080:8080 jenkins
 
 ###How to configure your Jenkins
 The main config file is config.json
-You can specify your url(It's very important and don't use local url), credentials, administrator, plugins and workflow
+You can specify your url(It's very important and don't use local url), credentials, administrator, plugins and workflow.
 If you want to config it after Jenkins init, you can run node file in autojenkins folder.
 
 ###How to configure your jobs
@@ -43,8 +43,3 @@ be triggered and update all the jobs.
 ###Change repo
 It may be complex if you want to change a job-config repo. You need to change url of config file in each groovy file and node file.
 
-###Known issues
-I found that raw.github.com may not change at once you do a commit or your repo may not support raw text. You should change the line
-"def jsonPayload = new URL("https://raw.githubusercontent.com/zackliu/jenkins/master/config.json").getText();" into what I've written
-in createjobs/createjobs.groovy.
-I will fix it later.

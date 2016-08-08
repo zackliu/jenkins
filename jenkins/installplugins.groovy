@@ -3,11 +3,11 @@ import hudson.security.*
 import java.net.*
 import groovy.json.JsonSlurper
 
-checkedTimes = 3
+checkedTimes = 100
 
 def checkStarted()
 {
-  if(Jenkins == null)
+  if(Jenkins == null || Jenkins.getInstance() == null)
   {
     checkedTimes = checkedTimes - 1
     if(checkedTimes <= 0) exit(1)
@@ -16,17 +16,12 @@ def checkStarted()
   }
   return
 }
-
 checkStarted()
 
-pm = Jenkins.instance.pluginManager
-uc = Jenkins.instance.updateCenter
 def jsonPayload = new File("/var/jenkins_home/systemConfig/config.json").getText() //depends on the structure of your repo
 def state = new JsonSlurper().parseText(jsonPayload);
 
-
-
-deployed = false
+def deployed = false
 def activatePlugin(plugin) {
   if (! plugin.isEnabled()) {
     plugin.enable()
@@ -34,22 +29,26 @@ def activatePlugin(plugin) {
   }
 
   plugin.getDependencies().each {
-    activatePlugin(pm.getPlugin(it.shortName))
+    activatePlugin(Jenkins.getInstance().pluginManager.getPlugin(it.shortName))
   }
 }
 
 state.plugins.each {
-  if (! pm.getPlugin(it)) {
-    deployment = uc.getPlugin(it).deploy(true)
+  if (! Jenkins.getInstance().pluginManager.getPlugin(it)) {
+    while(Jenkins.getInstance().updateCenter == null || Jenkins.getInstance().updateCenter.getPlugin(it) == null)
+    {
+      sleep(5000)
+    }
+    deployment = Jenkins.getInstance().updateCenter.getPlugin(it).deploy(true)
     deployment.get()
   }
-  activatePlugin(pm.getPlugin(it))
+  activatePlugin(Jenkins.getInstance().pluginManager.getPlugin(it))
 }
 
 updated = false
-pm.plugins.each { plugin ->
-  if (uc.getPlugin(plugin.shortName).version != plugin.version) {
-    update = uc.getPlugin(plugin.shortName).deploy(true)
+Jenkins.getInstance().pluginManager.plugins.each { plugin ->
+  if (Jenkins.getInstance().updateCenter.getPlugin(plugin.shortName).version != plugin.version) {
+    update = Jenkins.getInstance().updateCenter.getPlugin(plugin.shortName).deploy(true)
     update.get()
     updated = true
   }
