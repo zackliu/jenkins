@@ -4,7 +4,7 @@ SYSCONFIGURL="https://github.com/zackliu/jenkins.git"
 LOOP=10
 
 git clone $SYSCONFIGURL systemConfig
-while [! -a systemConfig/config.json]
+while [ ! -a systemConfig/config.json ]
 do
 LOOP=LOOP-1
 if [LOOP -eq 0]; then
