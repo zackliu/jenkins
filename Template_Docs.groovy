@@ -138,9 +138,6 @@ def createE2eJob(jobName, upstreamJobName, jobSettings, testBranch) {
         steps {
             shell([
                 '#!/bin/bash',
-                'export DISPLAY=:0',
-                'sudo Xvfb :0 -ac -screen 0 1920x1080x24 &',
-                'webdriver-manager start &',
                 'npm install',
                 'npm update',
                 'sed -i \'s/maxInstances: 6/maxInstances: 2/g\' test/Docs/protractor.config.js',
@@ -151,13 +148,6 @@ def createE2eJob(jobName, upstreamJobName, jobSettings, testBranch) {
         publishers {
             artifactArchiver {
                 artifacts('result/e2e/screenshots/**/*.*') // Archive E2E test results
-            }
-            postBuildScripts {
-                onlyIfBuildSucceeds(false)
-                steps {
-                    batchFile('START taskkill /f /im chrome.exe \n' +
-                              'START taskkill /f /im chromedriver.exe')
-                }
             }
             extendedEmail {
                 recipientList(jobSettings['mailGroup'])
