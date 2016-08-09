@@ -244,10 +244,13 @@ def execute(settings) {
         def locciJobName = folderName + '/' + it + '_locci'
 
         def buildSteps = [
-            'npm install',
+            'npm install || npm install',
             'npm update',
-            'npm run opst init',
-            "npm run opst -- deployTheme -B docker_${it}"
+            'cp project.js node_modules/opst/lib/utils/project.js',
+            'cp LiquidPlugin.js node_modules/opst/lib/loaders/LiquidPlugin.js',
+            'cp buildTasks.js node_modules/opst/lib/buildTasks.js',
+            'mv src/themes/yml/Rest.html.yml src/themes/yml/rest.html.yml',
+            'node node_modules/opst/bin/opst.js deployTheme -B docker_${it}'
         ]
         def locBuildSteps = [
             'npm install',
