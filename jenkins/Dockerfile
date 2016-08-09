@@ -39,7 +39,7 @@ RUN echo "jenkins ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 EXPOSE 8080
 EXPOSE 50000
 
-ENV JAVA_OPTS="$JAVA_OPTS -Dhudson.Main.development=true -Djenkins.install.runSetupWizard=false -Djava.awt.headless=true -Dhudson.model.DirectoryBrowserSupport.CSP=\"sandbox allow-scripts allow-popups; style-src 'unsafe-inline' *;script-src 'unsafe-inline' *;\""
+ENV JAVA_OPTS="$JAVA_OPTS -Dhudson.Main.development=true -Djenkins.install.runSetupWizard=false -Djava.awt.headless=true -Dhudson.model.DirectoryBrowserSupport.CSP=\"\""
 
 #COPY installplugins.groovy /var/jenkins_home/HOOK.groovy
 COPY . /var/jenkins_home/

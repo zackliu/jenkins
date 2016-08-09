@@ -1,0 +1,122 @@
+FROM mono:4.4.0
+
+# install node 6.3
+# gpg keys listed at https://github.com/nodejs/node
+RUN set -ex \
+  && for key in \
+    9554F04D7259F04124DE6B476D5A82AC7E37093B \
+    94AE36675C464D64BAFA68DD7434390BDBE9B9C5 \
+    0034A06D9D9B0064CE8ADF6BF1747F4AD2306D93 \
+    FD3A5288F042B6850C66B31F09FE44734EB7990E \
+    71DCFD284A79C3B38668286BC97EC7A07EDE3FC1 \
+    DD8F2338BAE7501E3DD5AC78C273792F7D83545D \
+    B9AE9905FFD7803F25714661B63B535A4C206CA9 \
+    C4F0DFFF4E8C1A8236409D08E73BC641CC11F4C8 \
+  ; do \
+    gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$key"; \
+  done
+
+ENV NPM_CONFIG_LOGLEVEL info
+ENV NODE_VERSION 6.3.1
+
+RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.xz" \
+  && curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc" \
+  && gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc \
+  && grep " node-v$NODE_VERSION-linux-x64.tar.xz\$" SHASUMS256.txt | sha256sum -c - \
+  && tar -xJf "node-v$NODE_VERSION-linux-x64.tar.xz" -C /usr/local --strip-components=1 \
+  && rm "node-v$NODE_VERSION-linux-x64.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt
+
+#install git supervisor sudo openjdk openssh
+RUN apt-get update && \ 
+    apt-get install -y supervisor \
+    sudo \
+    openjdk-7-jre \
+    openssh-server \
+    wget \
+    curl
+RUN echo "deb http://http.debian.net/debian wheezy-backports main" >/etc/apt/sources.list.d/wheezy-backports.list && \
+    apt-get update  && \
+    apt-get -t wheezy-backports install -y git
+
+#install gulp
+RUN npm install -g gulp gulp-cli bower
+
+RUN /usr/bin/ssh-keygen -A
+RUN sed -ri 's/^session\s+required\s+pam_loginuid.so$/session optional pam_loginuid.so/' /etc/pam.d/sshd
+
+#add user for jenkins slave
+RUN useradd jenkins
+RUN mkdir -p /home/jenkins
+RUN chown -R jenkins /home/jenkins
+RUN chgrp -R jenkins /home/jenkins
+RUN echo "jenkins:jenkins" | chpasswd
+RUN echo "root:root" | chpasswd
+RUN mkdir -p /var/run/sshd
+
+#use sudo without password
+RUN echo "jenkins ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+
+#RUN npm config set //mseng.pkgs.visualstudio.com/_packaging/WebComponents/npm/:_authToken=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6Im9PdmN6NU1fN3AtSGpJS2xGWHo5M3VfVjBabyJ9.eyJuYW1laWQiOiJiMzQzYjA4OS1iOTc5LTQ1NDMtOTI5Mi0yMDZlM2NjYzAxNzQiLCJzY3AiOiJhcHBfdG9rZW4iLCJhdWkiOiI1N2RkYTE3ZC04ZGU0LTRjNjAtYmM2My0wMjExMDgwYTk4YmMiLCJzaWQiOiJlZGYxMjgyZC05NWQ1LTQ5NzgtYjRjMy1jYzJiOWI4NTUzYzMiLCJpc3MiOiJhcHAudnNzcHMudmlzdWFsc3R1ZGlvLmNvbSIsImF1ZCI6ImFwcC52c3Nwcy52aXN1YWxzdHVkaW8uY29tfHZzbzo3NTRmODY5MS0xOWNlLTQ3YTItYTFlOC1lYmVhYjFlNjc5NTUiLCJuYmYiOjE0NzAwMTk3ODQsImV4cCI6MTQ3Nzc5NTc4Mn0.vxEGCNAzbg-1Kw_7WUBO2mNH_KigNXlvy6B5N6aNU99PLHHhMjqPkHMxAZgxGDB3Q8H-Rl6awdJeLROTQFvR0G5y3QVORIqYqJPtbqTMuow0MeSfpprM8cGBDajBvc4s8ss83I-FbWJ6A_ZqRMNPwsevXLgis2KA0jTk3BoZiZ-WXMmp1hR5CjK9w2JPjXQhrTFNe15HJIIqZkJtZATZVxZcedx4gBjdujT7V1W-XBFICAHzLj3IVePoo9QMj1UI7MqgojZlo4XNGIqmeyRZGmGwXm39e7Dw1qWT6EldYhtJlG97pbnYxTjA1xpUPdE2oHjhB5wWr4HYxuexmq8n4w
+
+USER jenkins
+WORKDIR /home/jenkins
+
+RUN npm config set //mseng.pkgs.visualstudio.com/_packaging/WebComponents/npm/:_authToken=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6Im9PdmN6NU1fN3AtSGpJS2xGWHo5M3VfVjBabyJ9.eyJuYW1laWQiOiJiMzQzYjA4OS1iOTc5LTQ1NDMtOTI5Mi0yMDZlM2NjYzAxNzQiLCJzY3AiOiJhcHBfdG9rZW4iLCJhdWkiOiI1N2RkYTE3ZC04ZGU0LTRjNjAtYmM2My0wMjExMDgwYTk4YmMiLCJzaWQiOiJlZGYxMjgyZC05NWQ1LTQ5NzgtYjRjMy1jYzJiOWI4NTUzYzMiLCJpc3MiOiJhcHAudnNzcHMudmlzdWFsc3R1ZGlvLmNvbSIsImF1ZCI6ImFwcC52c3Nwcy52aXN1YWxzdHVkaW8uY29tfHZzbzo3NTRmODY5MS0xOWNlLTQ3YTItYTFlOC1lYmVhYjFlNjc5NTUiLCJuYmYiOjE0NzAwMTk3ODQsImV4cCI6MTQ3Nzc5NTc4Mn0.vxEGCNAzbg-1Kw_7WUBO2mNH_KigNXlvy6B5N6aNU99PLHHhMjqPkHMxAZgxGDB3Q8H-Rl6awdJeLROTQFvR0G5y3QVORIqYqJPtbqTMuow0MeSfpprM8cGBDajBvc4s8ss83I-FbWJ6A_ZqRMNPwsevXLgis2KA0jTk3BoZiZ-WXMmp1hR5CjK9w2JPjXQhrTFNe15HJIIqZkJtZATZVxZcedx4gBjdujT7V1W-XBFICAHzLj3IVePoo9QMj1UI7MqgojZlo4XNGIqmeyRZGmGwXm39e7Dw1qWT6EldYhtJlG97pbnYxTjA1xpUPdE2oHjhB5wWr4HYxuexmq8n4w
+
+RUN mkdir -p ~/.ssh
+COPY id_rsa /home/jenkins/.ssh/
+COPY known_hosts /home/jenkins/.ssh/
+RUN sudo chown jenkins /home/jenkins/.ssh/id_rsa
+RUN sudo chgrp jenkins /home/jenkins/.ssh/id_rsa
+RUN sudo chown jenkins /home/jenkins/.ssh/known_hosts
+RUN sudo chgrp jenkins /home/jenkins/.ssh/known_hosts
+RUN chmod 600 /home/jenkins/.ssh/id_rsa
+RUN git config --global user.email "andxu@microsoft.com"
+RUN git config --global user.name "andxu"
+
+USER root
+
+EXPOSE 22
+
+#ssh -T git@github.com:Microsoft/templates.docs.msft.git
+#COPY ./Template.MSDN ./Template.MSDN
+
+#############################################
+#if you want to change from ps1 to sh, you should use the command line below
+#############################################
+
+#sudo chmod -R 777 .
+#sed -i 's/powershell -ExecutionPolicy Bypass .\/setup-op.ps1/\/bin\/bash .\/setup-op.sh/g' package.json
+#sed -i 's/.\/nuget.exe/\/nuget.exe/g' ./node_modules/gulp-nuget-restore/index.js
+
+######################################
+#using opst and Template.MSDN
+######################################
+
+#delete task version
+#sudo sed -i -e '34d' /usr/local/lib/node_modules/opst/lib/buildTasks.js
+
+#use opst in linux
+#node /usr/local/lib/node_modules/opst/bin/opst.js ...
+
+###############################
+#using Template.Docs
+################################
+#utils/project.js line110: \\*liquid -> /*liquid  
+#                 line18: .\\ -> /
+#cp project.js node_modules/opst/lib/utils/project.js
+#cp helper.js node_modules/opst/lib/utils/helper.js
+#cp LiquidPlugin.js node_modules/opst/lib/loaders/LiquidPlugin.js
+#cp buildTasks.js node_modules/opst/lib/buildTasks.js
+#mv src/themes/yml/Rest.html.yml src/themes/yml/rest.html.yml
+#cp setup-op.sh temp/tools/setup-op.sh #
+#NOTE npm install -g bower
+
+####Command Line######
+#npm install || npm install
+#npm update
+#cp project.js node_modules/opst/lib/utils/project.js
+#cp LiquidPlugin.js node_modules/opst/lib/loaders/LiquidPlugin.js
+#cp buildTasks.js node_modules/opst/lib/buildTasks.js
+#mv src/themes/yml/Rest.html.yml src/themes/yml/rest.html.yml
+#node node_modules/opst/bin/opst.js deployTheme -B docker_develop

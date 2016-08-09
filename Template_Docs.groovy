@@ -234,7 +234,7 @@ def execute(settings) {
         release: 'minor',
         hotfix: 'patch'
     ]
-    def gitToken = decode("adfasd")
+    def gitToken = decode(TOKEN)
     branches.each {
         def ciJobName = folderName + '/' + it + '_ci'
         def opbuildJobName = folderName + '/' + it + '_opbuild'
@@ -253,7 +253,7 @@ def execute(settings) {
             'npm install',
             'npm update',
             'npm run opst init',
-            "npm run opst -- deployLocTheme -B ${it}"
+            "npm run opst -- deployLocTheme -B docker_${it}"
         ]
         def bumpVersionSteps = [
             'npm version ' + bumpMapping[it],
