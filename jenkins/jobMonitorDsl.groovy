@@ -7,10 +7,10 @@ job("jobMonitor/jobMonitor")
         {
             remote
             {
-                url("https://github.com/zackliu/jenkins")
-                credentials("zackliu-github")
+                url(REPO)
+                credentials(CREDENTIALSID)
             }
-            branch("master")
+            branch(BRANCH)
         }
     }
     

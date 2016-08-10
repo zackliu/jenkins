@@ -24,7 +24,21 @@ def checkStarted()
 
 checkStarted()
 
+instance = Jenkins.getInstance()
+globalNodeProperties = instance.getGlobalNodeProperties()
+envVarsNodePropertyList = globalNodeProperties.getAll(hudson.slaves.EnvironmentVariablesNodeProperty.class)
 
+if ( envVarsNodePropertyList == null || envVarsNodePropertyList.size() == 0 ) {
+  newEnvVarsNodeProperty = new hudson.slaves.EnvironmentVariablesNodeProperty();
+  globalNodeProperties.add(newEnvVarsNodeProperty)
+  envVars = newEnvVarsNodeProperty.getEnvVars()
+} else {
+  envVars = envVarsNodePropertyList.get(0).getEnvVars()
+}
+
+envVars.put("MONITORREPO", "${state.jobMonitor.repo}") //<Key, Value>
+
+instance.save()
 
 def createSeedJobAndRun(name, url, templates, folderName)
 {
@@ -41,10 +55,16 @@ def createSeedJobAndRun(name, url, templates, folderName)
     job.displayName = name
   }
 
-  def text = new URL(templates).getText()
+  //def text = new URL(templates).getText()
+  def text = new File("/var/jenkins_home/systemConfig/jenkins/jobMonitorDsl.json").getText()
 
-  url = "TURL="+url
-  envinjectBuilder = new EnvInjectBuilder(null, url)
+  env = [
+    "REPO=${state.jobMonitor.repo}",
+    "CREDENTIALSID=${state.jobMonitor.credentialsId}",
+    "BRANCH=${state.jobMonitor.branch}"
+    ].join('\n');
+
+  envinjectBuilder = new EnvInjectBuilder(null, env)
   job.buildersList.add(envinjectBuilder)
 
 
@@ -81,7 +101,7 @@ else
   folder = Jenkins.getInstance().createProject(Folder, "jobMonitor")
 }
 
-createSeedJobAndRun("jobMonitor_Seed", null, state.jobMonitor, "jobMonitor");
+createSeedJobAndRun("jobMonitor_Seed", null, null, "jobMonitor");
 
 
 

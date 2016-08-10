@@ -1,9 +1,11 @@
 #!/bin/bash
 
-SYSCONFIGURL="https://github.com/zackliu/jenkins.git"
 LOOP=10
+if [ -z "$REPO" ]; then
+    exit 1
+fi
 
-git clone $SYSCONFIGURL systemConfig
+git clone $REPO systemConfig
 while [ ! -a systemConfig/config.json ]
 do
 LOOP=LOOP-1

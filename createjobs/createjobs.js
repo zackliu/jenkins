@@ -6,23 +6,9 @@ var data = rf.readFileSync("createjobs.groovy", "utf-8");
 
 var times = 3;
 
-var json = "";
-var url = "https://raw.githubusercontent.com/zackliu/jenkins/master/config.json";
-https.get(url, function(res) {
-    res.on('data', function(data) {
-        json += data;
-    }).on('end', function() {
-        rf.writeFileSync("./config.json", json);
-        console.log("config ok");
-        doPost();
-    });
-    
-});
-
-
 function doPost(){
-    var config = require('./config.json');
-    var finalurl = 'http://' + encodeURIComponent(config['administrator'][0]['username']) + ':' + encodeURIComponent("#Bugsfor$") + '@' + config['url'].substr(7) + 'scriptText';
+    var config = require('./systemConfig/config.json');
+    var finalurl = 'http://' + encodeURIComponent(config['administrator'][0]['username']) + ':' + encodeURIComponent(config['administrator'][0]['username']) + '@' + "$HUDSON_URL".substr(7) + 'scriptText';
     console.log(finalurl);
     request.post(
         {
@@ -58,5 +44,6 @@ function doPost(){
         }
         
     );
-
 }
+
+doPost();

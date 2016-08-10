@@ -21,10 +21,14 @@ RUN echo "jenkins ALL=(ALL) NOPASSWD: ALL" >> etc/sudoers
 
 #COPY /files/resolv.conf /etc/resolv.conf
 
-COPY . /home/jenkins/createjobs
+USER jenkins
 
-WORKDIR /home/jenkins/createjobs
+COPY . /home/jenkins/
+
+WORKDIR /home/jenkins/
+
+USER root
 
 EXPOSE 22
 
-CMD ["node", "/home/jenkins/createjobs"]
+#CMD ["node", "/home/jenkins/createjobs"]

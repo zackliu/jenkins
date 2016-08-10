@@ -17,7 +17,7 @@ def proc2 = commandCreateDir.execute()
 proc2.waitFor()
 
 //clone git
-def commandCloneGit = ["git", "clone", "https://github.com/zackliu/jenkins.git", "git"] //if you change repo you need to change this line
+def commandCloneGit = ["git", "clone", "${MONITORREPO}", "git"] //if you change repo you need to change this line
 def srcDir = new File("/var/jenkins_home/groovyTemp")
 def proc3 = commandCloneGit.execute(null, srcDir)
 proc3.waitFor()
@@ -73,7 +73,7 @@ def createSeedJobAndRun(name, env, templates, folderName)
   def shellBuilder = new hudson.tasks.Shell(["sudo rm -rf $workspace",
                                         "mkdir -p $workspace",
                                         "cd $workspace",
-                                        "sudo git clone https://github.com/zackliu/jenkins.git ."].join('\n'))
+                                        "sudo git clone ${MONITORREPO} ."].join('\n'))
   job.buildersList.add(shellBuilder)
 
   //add templates

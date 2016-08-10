@@ -129,7 +129,11 @@
             ]
         }
     ],
-    "jobMonitor": "https://raw.githubusercontent.com/zackliu/jenkins/master/auto%20jenkins/jobMonitorDsl.groovy",
+    "jobMonitor":{
+        "repo" : "https://github.com/zackliu/jenkins.git",
+        "credentialsId" : "github",
+        "branch" : "master"
+    },
     "workflow":[
         {
             "seedJobName": "INIT/Jobs_seed",
