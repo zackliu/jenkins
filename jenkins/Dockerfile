@@ -51,7 +51,7 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 RUN mkdir -p /var/log
 
-USER jenkins
+
 WORKDIR /var/jenkins_home/
 ENTRYPOINT ["/bin/sh", "-c"]
 CMD ["/usr/bin/supervisord"]

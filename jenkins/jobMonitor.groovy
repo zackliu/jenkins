@@ -56,7 +56,7 @@ def createSeedJobAndRun(name, url, templates, folderName)
   }
 
   //def text = new URL(templates).getText()
-  def text = new File("/var/jenkins_home/systemConfig/jenkins/jobMonitorDsl.json").getText()
+  def text = new File("/var/jenkins_home/systemConfig/jenkins/jobMonitorDsl.groovy").getText()
 
   env = [
     "REPO=${state.jobMonitor.repo}",
