@@ -21,6 +21,6 @@ job("jobMonitor/jobMonitor")
 
     steps
     {
-        shell("cd /home/jenkins/createjobs && sudo node createjobs.js")
+        shell("bash start.sh")
     }
 }

@@ -29,6 +29,8 @@ WORKDIR /home/jenkins/
 
 USER root
 
+COPY . /home/jenkins/
+
 EXPOSE 22
 
 #CMD ["node", "/home/jenkins/createjobs"]
