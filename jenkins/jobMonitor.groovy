@@ -6,7 +6,7 @@ import org.jenkinsci.plugins.envinject.*
 import com.cloudbees.hudson.plugins.folder.*
 
 def jsonPayload = new File("/var/jenkins_home/systemConfig/config.json").getText() //depends on the structure of your repo
-def state = new JsonSlurper().parseText(jsonPayload);
+state = new JsonSlurper().parseText(jsonPayload);
 
 checkedTimes = 3
 
