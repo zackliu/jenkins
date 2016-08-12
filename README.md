@@ -28,12 +28,30 @@ This docker image is used to run protractor test
 		cd e2e
 		docker build -t e2e_slave .
 
+####createJobs environment
+This docker image is used to createJobs
+
+		cd createJobs
+		docker build -t createJobs .
+
+
 ###Run Jenkins
 (Notice) you must specify you repo which contains system by --env REPO="your repo"
 
 You can run your jenkins with
 
 		docker run -d -p 8080:8080 --name jenkins --env REPO="https://github.com/zackliu/jenkins.git" jenkins
+
+###CreateJobs
+When you start a new jenkins, there is one job named jobMonitor, which can monitor the JSON file in you jobs repo.
+
+The repo url will be written in environment variables by defult named MONITORREPO.
+
+You can also run createJobs container manually
+
+		docker run -d --env MONITORREPO="your job repo" URL="your jenkins url" createJobs
+
+By the way, if you run this docker container manually, you must make sure there is a environment variable named MONITORREPO in jenkins.
 
 ###How to configure your Jenkins
 The main config file is config.json
