@@ -5,10 +5,13 @@ var data = rf.readFileSync("createjobs.groovy", "utf-8");
 //console.log(data);
 
 var times = 3;
+var finalurl = "";
+var config = require('./systemConfig/config.json');
+if(typeof URL !== 'undefined' && URL) finalurl = URL;
+else finalurl = 'http://' + encodeURIComponent(config['administrator'][0]['username']) + ':' + encodeURIComponent("#Bugsfor$") + '@' + config.url.substr(7) + 'scriptText';
+
 
 function doPost(){
-    var config = require('./systemConfig/config.json');
-    var finalurl = 'http://' + encodeURIComponent(config['administrator'][0]['username']) + ':' + encodeURIComponent(config['administrator'][0]['username']) + '@' + "$HUDSON_URL".substr(7) + 'scriptText';
     console.log(finalurl);
     request.post(
         {

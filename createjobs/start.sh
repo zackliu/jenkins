@@ -1,16 +1,12 @@
 #!/bin/bash
+LOOP=10
+
 if [ -z "$MONITORREPO" ]; then
     exit 1
 fi
 
+rm -rf systemConfig
 git clone $MONITORREPO systemConfig
 
-while [ ! -a systemConfig/config.json ]
-do
-    LOOP=LOOP-1
-    if [LOOP -eq 0]; then
-        exit 1
-    fi
-done
 
 node createjobs.js

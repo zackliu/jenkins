@@ -5,6 +5,13 @@ import groovy.json.JsonSlurper
 import org.jenkinsci.plugins.envinject.*
 import com.cloudbees.hudson.plugins.folder.*
 
+
+globalNodeProperties = Jenkins.getInstance().getGlobalNodeProperties()
+envVarsNodePropertyList = globalNodeProperties.getAll(hudson.slaves.EnvironmentVariablesNodeProperty.class)
+
+envVars = envVarsNodePropertyList.get(0).getEnvVars()
+MONITORREPO = envVars.find{it.key == "MONITORREPO"}.value
+
 //def jsonPayload = new URL("https://raw.githubusercontent.com/zackliu/jenkins/master/config.json").getText();
 //clean dir
 def commandClean = ["rm", "-rf", "/var/jenkins_home/groovyTemp"]
@@ -17,7 +24,7 @@ def proc2 = commandCreateDir.execute()
 proc2.waitFor()
 
 //clone git
-def commandCloneGit = ["git", "clone", "${MONITORREPO}", "git"] //if you change repo you need to change this line
+def commandCloneGit = ["git", "clone", MONITORREPO, "git"] //if you change repo you need to change this line
 def srcDir = new File("/var/jenkins_home/groovyTemp")
 def proc3 = commandCloneGit.execute(null, srcDir)
 proc3.waitFor()

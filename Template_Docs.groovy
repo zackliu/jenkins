@@ -234,7 +234,7 @@ def execute(settings) {
         release: 'minor',
         hotfix: 'patch'
     ]
-    def gitToken = decode(TOKEN)
+    def gitToken = "sdf"
     branches.each {
         def ciJobName = folderName + '/' + it + '_ci'
         def opbuildJobName = folderName + '/' + it + '_opbuild'
