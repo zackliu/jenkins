@@ -15,7 +15,7 @@ checkedTimes = 3
 
 def checkStarted()
 {
-  if(Jenkins == null)
+  if(Jenkins == null || Jenkins.getInstance() == null)
   {
     checkedTimes = checkedTimes - 1
     if(checkedTimes <= 0) exit(1)
@@ -29,8 +29,8 @@ checkStarted()
 
 
 //create credentials
-domain = Domain.global()
-store = Jenkins.getInstance().getExtensionList('com.cloudbees.plugins.credentials.SystemCredentialsProvider')[0].getStore()
+def domain = Domain.global()
+def store = Jenkins.getInstance().getExtensionList('com.cloudbees.plugins.credentials.SystemCredentialsProvider')[0].getStore()
 
 state.credentials.each
 {

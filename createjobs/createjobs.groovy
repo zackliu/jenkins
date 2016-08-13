@@ -76,10 +76,10 @@ def createSeedJobAndRun(name, env, templates, folderName)
   job.buildersList.add(envinjectBuilder)
 
   //add a shell to clone git to local
-  def workspace = "/var/jenkins_home/jobs/$folderName/jobs/$name/workspace"
-  def shellBuilder = new hudson.tasks.Shell(["sudo rm -rf $workspace",
-                                        "mkdir -p $workspace",
-                                        "cd $workspace",
+  //def workspace = "/var/jenkins_home/jobs/$folderName/jobs/$name/workspace"
+  def shellBuilder = new hudson.tasks.Shell(['sudo rm -rf $WORKSPACE',
+                                        'mkdir -p $WORKSPACE',
+                                        'cd $WORKSPACE',
                                         "sudo git clone ${MONITORREPO} ."].join('\n'))
   job.buildersList.add(shellBuilder)
 
@@ -97,7 +97,7 @@ def createSeedJobAndRun(name, env, templates, folderName)
   )
   job.buildersList.add(builder)
 
-  def postBuilder = new hudson.tasks.Shell("sudo rm -rf $workspace")
+  def postBuilder = new hudson.tasks.Shell('sudo rm -rf $WORKSPACE')
   job.buildersList.add(postBuilder)
 
   //save all builds

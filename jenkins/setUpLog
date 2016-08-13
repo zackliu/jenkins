@@ -1,0 +1,615 @@
+http://localhost:8080/scriptText
+Wait........
+http://localhost:8080/scriptText
+Wait........
+http://localhost:8080/scriptText
+a
+d
+e
+f
+{
+    "url" : "http://sitexpagents.eastasia.cloudapp.azure.com:8080/",
+    "user" : [
+        {"username" : "admin", "password" : "admin"},
+        {"username" : "test", "password" : "test"}
+    ],
+    "administrator" : [
+        {"username" : "admin", "password" : "admin"}
+    ],
+    "plugins":[
+        "cloudbees-folder",
+        "antisamy-markup-formatter",
+        "build-timeout",
+        "credentials-binding",
+        "timestamper",
+        "ws-cleanup",
+        "ant",
+        "gradle",
+        "workflow-aggregator",
+        "github-organization-folder",
+        "pipeline-stage-view",
+        "git",
+        "subversion",
+        "ssh-slaves",
+        "matrix-auth",
+        "pam-auth",
+        "ldap",
+        "email-ext",
+        "mailer",
+        "docker-plugin",
+        "job-dsl",
+        "delivery-pipeline-plugin",
+        "cloudbees-folder",
+        "postbuildscript",
+        "envinject"
+    ],
+    "credentials":[
+        {
+            "id": "jenkins-slave-password",
+            "description": "Jenkis Slave with Password Configuration",
+            "username": "jenkins",
+            "password": "jenkins"
+        }
+    ],
+    "docker":[
+        {
+            "name": "cloud",
+            "severUrl": "http://172.16.0.5:2375",
+            "containerCapStr": "50",
+            "connectTimeout": 5,
+            "readTimeout": 15,
+            "credentialsId": "",
+            "templates": [
+                {
+                    "image": "mono_slave",
+                    "dnsString": "",
+                    "network": "",
+                    "dockerCommand": "",
+                    "volumesString": "",
+                    "volumesFromString": "",
+                    "environmentsString": "",
+                    "lxcConfString": "",
+                    "hostname": "",
+                    "memoryLimit": null,
+                    "memorySwap": null,
+                    "cpuShares": null,
+                    "bindPorts": "",
+                    "bindAllPorts": false,
+                    "privileged": false,
+                    "tty": false,
+                    "labelString": "mono_slave",
+                    "remoteFs": "/home/jenkins",
+                    "remoteFsMapping": "/home/jenkins",
+                    "instanceCapStr": "10",
+                    "numExecutors": 1,
+                    "removeVolume": false,
+                    "pullStrategy": "Pull once and update latest"
+                },
+                {
+                    "image": "e2e_slave",
+                    "dnsString": "",
+                    "network": "",
+                    "dockerCommand": "/usr/bin/supervisord",
+                    "volumesString": "",
+                    "volumesFromString": "",
+                    "environmentsString": "",
+                    "lxcConfString": "",
+                    "hostname": "",
+                    "memoryLimit": null,
+                    "memorySwap": null,
+                    "cpuShares": null,
+                    "bindPorts": "",
+                    "bindAllPorts": false,
+                    "privileged": true,
+                    "tty": false,
+                    "labelString": "e2e_slave",
+                    "remoteFs": "/home/jenkins",
+                    "remoteFsMapping": "/home/jenkins",
+                    "instanceCapStr": "10",
+                    "numExecutors": 1,
+                    "removeVolume": false,
+                    "pullStrategy": "Pull once and update latest"
+                },
+                {
+                    "image": "createjobs",
+                    "dnsString": "",
+                    "network": "",
+                    "dockerCommand": "",
+                    "volumesString": "",
+                    "volumesFromString": "",
+                    "environmentsString": "",
+                    "lxcConfString": "",
+                    "hostname": "",
+                    "memoryLimit": null,
+                    "memorySwap": null,
+                    "cpuShares": null,
+                    "bindPorts": "",
+                    "bindAllPorts": false,
+                    "privileged": false,
+                    "tty": false,
+                    "labelString": "createJob_slave",
+                    "remoteFs": "/home/jenkins",
+                    "remoteFsMapping": "/home/jenkins",
+                    "instanceCapStr": "1",
+                    "numExecutors": 1,
+                    "removeVolume": false,
+                    "pullStrategy": "Pull once and update latest"
+                }
+            ]
+        }
+    ],
+    "jobMonitor": "https://raw.githubusercontent.com/zackliu/jenkins/master/auto%20jenkins/jobMonitorDsl.groovy",
+    "workflow":[
+        {
+            "seedJobName": "INIT/Jobs_seed",
+            "templates":[ 
+                "dslJob.groovy"
+            ],
+            "envinject":[
+                {"key": "FILE", "value": "jobs.json"}
+            ]
+        },
+        {
+            "seedJobName": "Template_Docs_seed",
+            "templates":[
+                "Template_Docs.groovy"
+            ],
+            "envinject":[
+                {"key": "FILE", "value": "Template_Docs.json"}
+            ]
+        }
+    ]
+}
+
+java.lang.NullPointerException: Cannot invoke method deploy() on null object
+	at org.codehaus.groovy.runtime.NullObject.invokeMethod(NullObject.java:91)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaClassSite.call(PogoMetaClassSite.java:48)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:48)
+	at org.codehaus.groovy.runtime.callsite.NullCallSite.call(NullCallSite.java:35)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:48)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:113)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:125)
+	at Script1$_run_closure1.doCall(Script1.groovy:44)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:93)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:325)
+	at org.codehaus.groovy.runtime.metaclass.ClosureMetaClass.invokeMethod(ClosureMetaClass.java:294)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1024)
+	at groovy.lang.Closure.call(Closure.java:414)
+	at groovy.lang.Closure.call(Closure.java:430)
+	at org.codehaus.groovy.runtime.DefaultGroovyMethods.each(DefaultGroovyMethods.java:2030)
+	at org.codehaus.groovy.runtime.DefaultGroovyMethods.each(DefaultGroovyMethods.java:2015)
+	at org.codehaus.groovy.runtime.DefaultGroovyMethods.each(DefaultGroovyMethods.java:2056)
+	at org.codehaus.groovy.runtime.dgm$162.invoke(Unknown Source)
+	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite$PojoMetaMethodSiteNoUnwrapNoCoerce.invoke(PojoMetaMethodSite.java:274)
+	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite.call(PojoMetaMethodSite.java:56)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:48)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:113)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:125)
+	at Script1.run(Script1.groovy:42)
+	at groovy.lang.GroovyShell.evaluate(GroovyShell.java:585)
+	at groovy.lang.GroovyShell.evaluate(GroovyShell.java:623)
+	at groovy.lang.GroovyShell.evaluate(GroovyShell.java:594)
+	at hudson.util.RemotingDiagnostics$Script.call(RemotingDiagnostics.java:142)
+	at hudson.util.RemotingDiagnostics$Script.call(RemotingDiagnostics.java:114)
+	at hudson.remoting.LocalChannel.call(LocalChannel.java:45)
+	at hudson.util.RemotingDiagnostics.executeGroovy(RemotingDiagnostics.java:111)
+	at jenkins.model.Jenkins._doScript(Jenkins.java:4043)
+	at jenkins.model.Jenkins.doScriptText(Jenkins.java:4022)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.kohsuke.stapler.Function$InstanceFunction.invoke(Function.java:324)
+	at org.kohsuke.stapler.Function.bindAndInvoke(Function.java:167)
+	at org.kohsuke.stapler.Function.bindAndInvokeAndServeResponse(Function.java:100)
+	at org.kohsuke.stapler.MetaClass$1.doDispatch(MetaClass.java:124)
+	at org.kohsuke.stapler.NameBasedDispatcher.dispatch(NameBasedDispatcher.java:58)
+	at org.kohsuke.stapler.Stapler.tryInvoke(Stapler.java:746)
+	at org.kohsuke.stapler.Stapler.invoke(Stapler.java:876)
+	at org.kohsuke.stapler.Stapler.invoke(Stapler.java:649)
+	at org.kohsuke.stapler.Stapler.service(Stapler.java:238)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:790)
+	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:812)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1669)
+	at hudson.util.PluginServletFilter$1.doFilter(PluginServletFilter.java:135)
+	at hudson.util.PluginServletFilter.doFilter(PluginServletFilter.java:126)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1652)
+	at hudson.security.csrf.CrumbFilter.doFilter(CrumbFilter.java:49)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1652)
+	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:84)
+	at hudson.security.ChainedServletFilter.doFilter(ChainedServletFilter.java:76)
+	at hudson.security.HudsonFilter.doFilter(HudsonFilter.java:171)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1652)
+	at org.kohsuke.stapler.compression.CompressionFilter.doFilter(CompressionFilter.java:49)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1652)
+	at hudson.util.CharacterEncodingFilter.doFilter(CharacterEncodingFilter.java:82)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1652)
+	at org.kohsuke.stapler.DiagnosticThreadNameFilter.doFilter(DiagnosticThreadNameFilter.java:30)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1652)
+	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:585)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:143)
+	at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:553)
+	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:223)
+	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1127)
+	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:515)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:185)
+	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:1061)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:141)
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:97)
+	at org.eclipse.jetty.server.Server.handle(Server.java:499)
+	at org.eclipse.jetty.server.HttpChannel.handle(HttpChannel.java:311)
+	at org.eclipse.jetty.server.HttpConnection.onFillable(HttpConnection.java:257)
+	at org.eclipse.jetty.io.AbstractConnection$2.run(AbstractConnection.java:544)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+http://localhost:8080/scriptText
+org.codehaus.groovy.control.MultipleCompilationErrorsException: startup failed:
+Script1.groovy: 37: unable to resolve class UsernamePasswordCredentialsImpl 
+ @ line 37, column 25.
+     usernameAndPassword = new UsernamePasswordCredentialsImpl(
+                           ^
+
+1 error
+
+	at org.codehaus.groovy.control.ErrorCollector.failIfErrors(ErrorCollector.java:310)
+	at org.codehaus.groovy.control.CompilationUnit.applyToSourceUnits(CompilationUnit.java:946)
+	at org.codehaus.groovy.control.CompilationUnit.doPhaseOperation(CompilationUnit.java:593)
+	at org.codehaus.groovy.control.CompilationUnit.compile(CompilationUnit.java:542)
+	at groovy.lang.GroovyClassLoader.doParseClass(GroovyClassLoader.java:298)
+	at groovy.lang.GroovyClassLoader.parseClass(GroovyClassLoader.java:268)
+	at groovy.lang.GroovyShell.parseClass(GroovyShell.java:688)
+	at groovy.lang.GroovyShell.parse(GroovyShell.java:700)
+	at groovy.lang.GroovyShell.evaluate(GroovyShell.java:584)
+	at groovy.lang.GroovyShell.evaluate(GroovyShell.java:623)
+	at groovy.lang.GroovyShell.evaluate(GroovyShell.java:594)
+	at hudson.util.RemotingDiagnostics$Script.call(RemotingDiagnostics.java:142)
+	at hudson.util.RemotingDiagnostics$Script.call(RemotingDiagnostics.java:114)
+	at hudson.remoting.LocalChannel.call(LocalChannel.java:45)
+	at hudson.util.RemotingDiagnostics.executeGroovy(RemotingDiagnostics.java:111)
+	at jenkins.model.Jenkins._doScript(Jenkins.java:4043)
+	at jenkins.model.Jenkins.doScriptText(Jenkins.java:4022)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.kohsuke.stapler.Function$InstanceFunction.invoke(Function.java:324)
+	at org.kohsuke.stapler.Function.bindAndInvoke(Function.java:167)
+	at org.kohsuke.stapler.Function.bindAndInvokeAndServeResponse(Function.java:100)
+	at org.kohsuke.stapler.MetaClass$1.doDispatch(MetaClass.java:124)
+	at org.kohsuke.stapler.NameBasedDispatcher.dispatch(NameBasedDispatcher.java:58)
+	at org.kohsuke.stapler.Stapler.tryInvoke(Stapler.java:746)
+	at org.kohsuke.stapler.Stapler.invoke(Stapler.java:876)
+	at org.kohsuke.stapler.Stapler.invoke(Stapler.java:649)
+	at org.kohsuke.stapler.Stapler.service(Stapler.java:238)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:790)
+	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:812)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1669)
+	at hudson.util.PluginServletFilter$1.doFilter(PluginServletFilter.java:135)
+	at hudson.util.PluginServletFilter.doFilter(PluginServletFilter.java:126)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1652)
+	at hudson.security.csrf.CrumbFilter.doFilter(CrumbFilter.java:49)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1652)
+	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:84)
+	at hudson.security.ChainedServletFilter.doFilter(ChainedServletFilter.java:76)
+	at hudson.security.HudsonFilter.doFilter(HudsonFilter.java:171)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1652)
+	at org.kohsuke.stapler.compression.CompressionFilter.doFilter(CompressionFilter.java:49)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1652)
+	at hudson.util.CharacterEncodingFilter.doFilter(CharacterEncodingFilter.java:82)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1652)
+	at org.kohsuke.stapler.DiagnosticThreadNameFilter.doFilter(DiagnosticThreadNameFilter.java:30)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1652)
+	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:585)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:143)
+	at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:553)
+	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:223)
+	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1127)
+	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:515)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:185)
+	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:1061)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:141)
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:97)
+	at org.eclipse.jetty.server.Server.handle(Server.java:499)
+	at org.eclipse.jetty.server.HttpChannel.handle(HttpChannel.java:311)
+	at org.eclipse.jetty.server.HttpConnection.onFillable(HttpConnection.java:257)
+	at org.eclipse.jetty.io.AbstractConnection$2.run(AbstractConnection.java:544)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+http://localhost:8080/scriptText
+org.codehaus.groovy.control.MultipleCompilationErrorsException: startup failed:
+Script1.groovy: 8: unable to resolve class hudson.plugins.sshslaves.SSHLauncher
+ @ line 8, column 1.
+   import hudson.plugins.sshslaves.SSHLauncher
+   ^
+
+Script1.groovy: 7: unable to resolve class hudson.plugins.sshslaves.SSHConnector
+ @ line 7, column 1.
+   import hudson.plugins.sshslaves.SSHConnector
+   ^
+
+Script1.groovy: 38: unable to resolve class DockerTemplate 
+ @ line 38, column 19.
+           ArrayList<DockerTemplate> r = new ArrayList<DockerTemplate>();
+                     ^
+
+Script1.groovy: 38: unable to resolve class DockerTemplate 
+ @ line 38, column 53.
+   erTemplate> r = new ArrayList<DockerTemp
+                                 ^
+
+Script1.groovy: 43: unable to resolve class DockerTemplate 
+ @ line 43, column 17.
+                   new DockerTemplate(
+                   ^
+
+Script1.groovy: 44: unable to resolve class DockerTemplateBase 
+ @ line 44, column 21.
+                       new DockerTemplateBase(
+                       ^
+
+Script1.groovy: 69: unable to resolve class DockerComputerSSHLauncher 
+ @ line 69, column 21.
+                       new DockerComputerSSHLauncher(new SSHConnector(22, "jenkins-slave-password", "", "", "", "", null, 0, 0)),
+                       ^
+
+Script1.groovy: 70: unable to resolve class DockerOnceRetentionStrategy 
+ @ line 70, column 21.
+                       new DockerOnceRetentionStrategy(10),
+                       ^
+
+Script1.groovy: 80: unable to resolve class DockerCloud 
+ @ line 80, column 19.
+           ArrayList<DockerCloud> r = new ArrayList<DockerCloud>();
+                     ^
+
+Script1.groovy: 80: unable to resolve class DockerCloud 
+ @ line 80, column 50.
+   ockerCloud> r = new ArrayList<DockerClou
+                                 ^
+
+Script1.groovy: 90: unable to resolve class DockerCloud 
+ @ line 90, column 17.
+                   new DockerCloud(
+                   ^
+
+11 errors
+
+	at org.codehaus.groovy.control.ErrorCollector.failIfErrors(ErrorCollector.java:310)
+	at org.codehaus.groovy.control.CompilationUnit.applyToSourceUnits(CompilationUnit.java:946)
+	at org.codehaus.groovy.control.CompilationUnit.doPhaseOperation(CompilationUnit.java:593)
+	at org.codehaus.groovy.control.CompilationUnit.compile(CompilationUnit.java:542)
+	at groovy.lang.GroovyClassLoader.doParseClass(GroovyClassLoader.java:298)
+	at groovy.lang.GroovyClassLoader.parseClass(GroovyClassLoader.java:268)
+	at groovy.lang.GroovyShell.parseClass(GroovyShell.java:688)
+	at groovy.lang.GroovyShell.parse(GroovyShell.java:700)
+	at groovy.lang.GroovyShell.evaluate(GroovyShell.java:584)
+	at groovy.lang.GroovyShell.evaluate(GroovyShell.java:623)
+	at groovy.lang.GroovyShell.evaluate(GroovyShell.java:594)
+	at hudson.util.RemotingDiagnostics$Script.call(RemotingDiagnostics.java:142)
+	at hudson.util.RemotingDiagnostics$Script.call(RemotingDiagnostics.java:114)
+	at hudson.remoting.LocalChannel.call(LocalChannel.java:45)
+	at hudson.util.RemotingDiagnostics.executeGroovy(RemotingDiagnostics.java:111)
+	at jenkins.model.Jenkins._doScript(Jenkins.java:4043)
+	at jenkins.model.Jenkins.doScriptText(Jenkins.java:4022)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.kohsuke.stapler.Function$InstanceFunction.invoke(Function.java:324)
+	at org.kohsuke.stapler.Function.bindAndInvoke(Function.java:167)
+	at org.kohsuke.stapler.Function.bindAndInvokeAndServeResponse(Function.java:100)
+	at org.kohsuke.stapler.MetaClass$1.doDispatch(MetaClass.java:124)
+	at org.kohsuke.stapler.NameBasedDispatcher.dispatch(NameBasedDispatcher.java:58)
+	at org.kohsuke.stapler.Stapler.tryInvoke(Stapler.java:746)
+	at org.kohsuke.stapler.Stapler.invoke(Stapler.java:876)
+	at org.kohsuke.stapler.Stapler.invoke(Stapler.java:649)
+	at org.kohsuke.stapler.Stapler.service(Stapler.java:238)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:790)
+	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:812)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1669)
+	at hudson.util.PluginServletFilter$1.doFilter(PluginServletFilter.java:135)
+	at hudson.util.PluginServletFilter.doFilter(PluginServletFilter.java:126)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1652)
+	at hudson.security.csrf.CrumbFilter.doFilter(CrumbFilter.java:49)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1652)
+	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:84)
+	at hudson.security.ChainedServletFilter.doFilter(ChainedServletFilter.java:76)
+	at hudson.security.HudsonFilter.doFilter(HudsonFilter.java:171)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1652)
+	at org.kohsuke.stapler.compression.CompressionFilter.doFilter(CompressionFilter.java:49)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1652)
+	at hudson.util.CharacterEncodingFilter.doFilter(CharacterEncodingFilter.java:82)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1652)
+	at org.kohsuke.stapler.DiagnosticThreadNameFilter.doFilter(DiagnosticThreadNameFilter.java:30)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1652)
+	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:585)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:143)
+	at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:553)
+	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:223)
+	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1127)
+	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:515)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:185)
+	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:1061)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:141)
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:97)
+	at org.eclipse.jetty.server.Server.handle(Server.java:499)
+	at org.eclipse.jetty.server.HttpChannel.handle(HttpChannel.java:311)
+	at org.eclipse.jetty.server.HttpConnection.onFillable(HttpConnection.java:257)
+	at org.eclipse.jetty.io.AbstractConnection$2.run(AbstractConnection.java:544)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+http://localhost:8080/scriptText
+org.codehaus.groovy.control.MultipleCompilationErrorsException: startup failed:
+Script1.groovy: 47: unable to resolve class EnvInjectBuilder 
+ @ line 47, column 22.
+     envinjectBuilder = new EnvInjectBuilder(null, url)
+                        ^
+
+Script1.groovy: 51: unable to resolve class javaposse.jobdsl.plugin.ExecuteDslScripts 
+ @ line 51, column 13.
+     builder = new javaposse.jobdsl.plugin.ExecuteDslScripts(
+               ^
+
+Script1.groovy: 52: unable to resolve class javaposse.jobdsl.plugin.ExecuteDslScripts.ScriptLocation 
+ @ line 52, column 5.
+       new javaposse.jobdsl.plugin.ExecuteDslScripts.ScriptLocation(
+       ^
+
+3 errors
+
+	at org.codehaus.groovy.control.ErrorCollector.failIfErrors(ErrorCollector.java:310)
+	at org.codehaus.groovy.control.CompilationUnit.applyToSourceUnits(CompilationUnit.java:946)
+	at org.codehaus.groovy.control.CompilationUnit.doPhaseOperation(CompilationUnit.java:593)
+	at org.codehaus.groovy.control.CompilationUnit.compile(CompilationUnit.java:542)
+	at groovy.lang.GroovyClassLoader.doParseClass(GroovyClassLoader.java:298)
+	at groovy.lang.GroovyClassLoader.parseClass(GroovyClassLoader.java:268)
+	at groovy.lang.GroovyShell.parseClass(GroovyShell.java:688)
+	at groovy.lang.GroovyShell.parse(GroovyShell.java:700)
+	at groovy.lang.GroovyShell.evaluate(GroovyShell.java:584)
+	at groovy.lang.GroovyShell.evaluate(GroovyShell.java:623)
+	at groovy.lang.GroovyShell.evaluate(GroovyShell.java:594)
+	at hudson.util.RemotingDiagnostics$Script.call(RemotingDiagnostics.java:142)
+	at hudson.util.RemotingDiagnostics$Script.call(RemotingDiagnostics.java:114)
+	at hudson.remoting.LocalChannel.call(LocalChannel.java:45)
+	at hudson.util.RemotingDiagnostics.executeGroovy(RemotingDiagnostics.java:111)
+	at jenkins.model.Jenkins._doScript(Jenkins.java:4043)
+	at jenkins.model.Jenkins.doScriptText(Jenkins.java:4022)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.kohsuke.stapler.Function$InstanceFunction.invoke(Function.java:324)
+	at org.kohsuke.stapler.Function.bindAndInvoke(Function.java:167)
+	at org.kohsuke.stapler.Function.bindAndInvokeAndServeResponse(Function.java:100)
+	at org.kohsuke.stapler.MetaClass$1.doDispatch(MetaClass.java:124)
+	at org.kohsuke.stapler.NameBasedDispatcher.dispatch(NameBasedDispatcher.java:58)
+	at org.kohsuke.stapler.Stapler.tryInvoke(Stapler.java:746)
+	at org.kohsuke.stapler.Stapler.invoke(Stapler.java:876)
+	at org.kohsuke.stapler.Stapler.invoke(Stapler.java:649)
+	at org.kohsuke.stapler.Stapler.service(Stapler.java:238)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:790)
+	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:812)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1669)
+	at hudson.util.PluginServletFilter$1.doFilter(PluginServletFilter.java:135)
+	at hudson.util.PluginServletFilter.doFilter(PluginServletFilter.java:126)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1652)
+	at hudson.security.csrf.CrumbFilter.doFilter(CrumbFilter.java:49)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1652)
+	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:84)
+	at hudson.security.ChainedServletFilter.doFilter(ChainedServletFilter.java:76)
+	at hudson.security.HudsonFilter.doFilter(HudsonFilter.java:171)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1652)
+	at org.kohsuke.stapler.compression.CompressionFilter.doFilter(CompressionFilter.java:49)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1652)
+	at hudson.util.CharacterEncodingFilter.doFilter(CharacterEncodingFilter.java:82)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1652)
+	at org.kohsuke.stapler.DiagnosticThreadNameFilter.doFilter(DiagnosticThreadNameFilter.java:30)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1652)
+	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:585)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:143)
+	at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:553)
+	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:223)
+	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1127)
+	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:515)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:185)
+	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:1061)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:141)
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:97)
+	at org.eclipse.jetty.server.Server.handle(Server.java:499)
+	at org.eclipse.jetty.server.HttpChannel.handle(HttpChannel.java:311)
+	at org.eclipse.jetty.server.HttpConnection.onFillable(HttpConnection.java:257)
+	at org.eclipse.jetty.io.AbstractConnection$2.run(AbstractConnection.java:544)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+http://localhost:8080/scriptText
+org.codehaus.groovy.control.MultipleCompilationErrorsException: startup failed:
+Script1.groovy: 42: unable to resolve class GlobalMatrixAuthorizationStrategy 
+ @ line 42, column 16.
+   def strategy = new GlobalMatrixAuthorizationStrategy()
+                  ^
+
+1 error
+
+	at org.codehaus.groovy.control.ErrorCollector.failIfErrors(ErrorCollector.java:310)
+	at org.codehaus.groovy.control.CompilationUnit.applyToSourceUnits(CompilationUnit.java:946)
+	at org.codehaus.groovy.control.CompilationUnit.doPhaseOperation(CompilationUnit.java:593)
+	at org.codehaus.groovy.control.CompilationUnit.compile(CompilationUnit.java:542)
+	at groovy.lang.GroovyClassLoader.doParseClass(GroovyClassLoader.java:298)
+	at groovy.lang.GroovyClassLoader.parseClass(GroovyClassLoader.java:268)
+	at groovy.lang.GroovyShell.parseClass(GroovyShell.java:688)
+	at groovy.lang.GroovyShell.parse(GroovyShell.java:700)
+	at groovy.lang.GroovyShell.evaluate(GroovyShell.java:584)
+	at groovy.lang.GroovyShell.evaluate(GroovyShell.java:623)
+	at groovy.lang.GroovyShell.evaluate(GroovyShell.java:594)
+	at hudson.util.RemotingDiagnostics$Script.call(RemotingDiagnostics.java:142)
+	at hudson.util.RemotingDiagnostics$Script.call(RemotingDiagnostics.java:114)
+	at hudson.remoting.LocalChannel.call(LocalChannel.java:45)
+	at hudson.util.RemotingDiagnostics.executeGroovy(RemotingDiagnostics.java:111)
+	at jenkins.model.Jenkins._doScript(Jenkins.java:4043)
+	at jenkins.model.Jenkins.doScriptText(Jenkins.java:4022)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.kohsuke.stapler.Function$InstanceFunction.invoke(Function.java:324)
+	at org.kohsuke.stapler.Function.bindAndInvoke(Function.java:167)
+	at org.kohsuke.stapler.Function.bindAndInvokeAndServeResponse(Function.java:100)
+	at org.kohsuke.stapler.MetaClass$1.doDispatch(MetaClass.java:124)
+	at org.kohsuke.stapler.NameBasedDispatcher.dispatch(NameBasedDispatcher.java:58)
+	at org.kohsuke.stapler.Stapler.tryInvoke(Stapler.java:746)
+	at org.kohsuke.stapler.Stapler.invoke(Stapler.java:876)
+	at org.kohsuke.stapler.Stapler.invoke(Stapler.java:649)
+	at org.kohsuke.stapler.Stapler.service(Stapler.java:238)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:790)
+	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:812)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1669)
+	at hudson.util.PluginServletFilter$1.doFilter(PluginServletFilter.java:135)
+	at hudson.util.PluginServletFilter.doFilter(PluginServletFilter.java:126)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1652)
+	at hudson.security.csrf.CrumbFilter.doFilter(CrumbFilter.java:49)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1652)
+	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:84)
+	at hudson.security.ChainedServletFilter.doFilter(ChainedServletFilter.java:76)
+	at hudson.security.HudsonFilter.doFilter(HudsonFilter.java:171)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1652)
+	at org.kohsuke.stapler.compression.CompressionFilter.doFilter(CompressionFilter.java:49)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1652)
+	at hudson.util.CharacterEncodingFilter.doFilter(CharacterEncodingFilter.java:82)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1652)
+	at org.kohsuke.stapler.DiagnosticThreadNameFilter.doFilter(DiagnosticThreadNameFilter.java:30)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1652)
+	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:585)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:143)
+	at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:553)
+	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:223)
+	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1127)
+	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:515)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:185)
+	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:1061)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:141)
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:97)
+	at org.eclipse.jetty.server.Server.handle(Server.java:499)
+	at org.eclipse.jetty.server.HttpChannel.handle(HttpChannel.java:311)
+	at org.eclipse.jetty.server.HttpConnection.onFillable(HttpConnection.java:257)
+	at org.eclipse.jetty.io.AbstractConnection$2.run(AbstractConnection.java:544)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+

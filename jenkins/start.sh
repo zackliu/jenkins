@@ -10,7 +10,7 @@ fi
 rm -rf $REPO systemConfig
 git clone $REPO systemConfig
 
-node installplugins.js >> /var/log/setUpLog && \
+#node installplugins.js >> /var/log/setUpLog && \
 node createcredentials.js >> /var/log/setUpLog && \
 node createdocker.js >> /var/log/setUpLog && \
 node jobMonitor.js >> /var/log/setUpLog && \

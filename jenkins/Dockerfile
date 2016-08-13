@@ -41,7 +41,12 @@ EXPOSE 50000
 
 ENV JAVA_OPTS="$JAVA_OPTS -Dhudson.Main.development=true -Djenkins.install.runSetupWizard=false -Djava.awt.headless=true -Dhudson.model.DirectoryBrowserSupport.CSP=\"\""
 
-#COPY installplugins.groovy /var/jenkins_home/HOOK.groovy
+#install plugins
+COPY plugins.txt /plugins.txt
+RUN echo 2.0 > /usr/share/jenkins/ref/jenkins.install.UpgradeWizard.state
+RUN /usr/local/bin/plugins.sh /plugins.txt
+
+
 COPY . /var/jenkins_home/
 COPY start.sh /var/jenkins_home/
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
@@ -53,7 +58,10 @@ RUN mkdir -p /var/log
 
 
 WORKDIR /var/jenkins_home/
+
+
 ENTRYPOINT ["/bin/sh", "-c"]
 CMD ["/usr/bin/supervisord"]
+
 #ENTRYPOINT ["/bin/bash", "/var/jenkins_home/start.sh"]
 # Expose Ports for web and slave agents
