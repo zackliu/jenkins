@@ -40,7 +40,7 @@ This docker image is used to createJobs
 
 You can run your jenkins with
 
-		docker run -d -p 8080:8080 --name jenkins --env REPO="https://github.com/zackliu/jenkins.git" jenkins
+		docker run -d -p 8080:8080 --privileged=true --name jenkins --env REPO="https://github.com/zackliu/jenkins.git" jenkins
 
 ###CreateJobs
 When you start a new jenkins, there is one job named jobMonitor, which can monitor the JSON file in you jobs repo.

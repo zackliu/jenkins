@@ -29,7 +29,8 @@ RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-
 
 
 RUN apt-get update && apt-get install -y supervisor sudo && \
-    apt-get update && npm install -y request git
+    apt-get update && npm install -y request git && \
+    apt-get install -y cifs-utils lsyncd
 
 #set password
 RUN echo "jenkins:jenkins" | chpasswd

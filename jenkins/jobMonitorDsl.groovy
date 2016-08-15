@@ -21,6 +21,6 @@ job("jobMonitor/jobMonitor")
 
     steps
     {
-        shell("bash start.sh")
+        shell("cd /home/jenkisn && bash start.sh")
     }
 }
