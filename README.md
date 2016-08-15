@@ -32,7 +32,7 @@ This docker image is used to run protractor test
 This docker image is used to createJobs
 
 		cd createJobs
-		docker build -t createJobs .
+		docker build -t createjobs .
 
 
 ###Run Jenkins

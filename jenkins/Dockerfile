@@ -40,7 +40,7 @@ EXPOSE 8080
 EXPOSE 50000
 
 ENV JAVA_OPTS="$JAVA_OPTS -Dhudson.Main.development=true -Djenkins.install.runSetupWizard=false -Djava.awt.headless=true -Dhudson.model.DirectoryBrowserSupport.CSP=\"\""
-
+RUN echo "a"
 #install plugins
 COPY plugins.txt /plugins.txt
 RUN echo 2.0 > /usr/share/jenkins/ref/jenkins.install.UpgradeWizard.state
