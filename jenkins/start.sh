@@ -12,15 +12,15 @@ git clone $REPO systemConfig
 
 #mount Azure File Storage
 if [ -z $MOUNTURL ]; then
-    MOUNTURL='ciservicestoragepool.file.core.windows.net/jobsconfig'
+    exit -1
 fi
 
 if [ -z $MOUNTACCOUNT ]; then
-    MOUNTACCOUNT='ciservicestoragepool'
+    exit -1
 fi
 
 if [ -z $MOUNTPASSWORD ]; then
-    MOUNTPASSWORD='INNFe+3A15rLJ+fSv89U7MLV4bJJNCSDZhZt2nEwuqwJPp5NrvSJapM8C9O2eeuN/ZUxlMXGo8NbdhObfGAwDw=='
+    exit -1
 fi
 
 mkdir /mnt/mount

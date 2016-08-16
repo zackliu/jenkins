@@ -40,7 +40,7 @@ This docker image is used to createJobs
 
 You can run your jenkins with
 
-		docker run -d -p 8080:8080 --privileged=true --name jenkins --env REPO="https://github.com/zackliu/jenkins.git" jenkins
+		docker run -d -p 8080:8080 --privileged=true --name jenkins --env REPO="https://github.com/zackliu/jenkins.git" --env MOUNTURL="ciservicestoragepool.file.core.windows.net/jobsconfig" --env MOUNTACCOUNT="ciservicestoragepool" --env MOUNTPASSWORD="INNFe+3A15rLJ+fSv89U7MLV4bJJNCSDZhZt2nEwuqwJPp5NrvSJapM8C9O2eeuN/ZUxl==" jenkins
 
 ###CreateJobs
 When you start a new jenkins, there is one job named jobMonitor, which can monitor the JSON file in you jobs repo.
@@ -49,7 +49,7 @@ The repo url will be written in environment variables by defult named MONITORREP
 
 You can also run createJobs container manually
 
-		docker run -d --env MONITORREPO="your job repo" URL="your jenkins url" createJobs
+		docker run -d --env MONITORREPO="your job repo" --env URL="your jenkins url" createJobs
 
 By the way, if you run this docker container manually, you must make sure there is a environment variable named MONITORREPO in jenkins.
 
